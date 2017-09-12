@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-header :auth="authenticated" />
+    <app-header />
     <router-view></router-view>
     <app-footer />
   </div>
@@ -9,6 +9,7 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+// import { bus } from './main';
 
 export default {
   name: 'app',
@@ -18,9 +19,6 @@ export default {
   },
   data () {
     return {
-      authenticated: true,
-      permission: {
-      }
     };
   }
 };

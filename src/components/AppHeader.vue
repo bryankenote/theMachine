@@ -13,7 +13,7 @@
           <button v-if="!auth" @click="showLoginModal">
             Login
           </button>
-          <router-link v-if="auth" to="/users/logout">Logout</router-link>
+          <button v-if="auth" @click.prevent="logout">Logout</button>
         </div>
       </div>
     </nav>
@@ -26,12 +26,17 @@
 <script>
 import RegisterModal from '../components/RegisterModal.vue';
 import LoginModal from '../components/LoginModal.vue';
+// import { bus } from '../main';
 
 export default {
-  props: ['auth'],
   components: {
     'register-modal': RegisterModal,
     'login-modal': LoginModal
+  },
+  computed: {
+    auth () {
+      return this.$store.state.authenticated;
+    }
   },
   data () {
     return {
@@ -51,6 +56,14 @@ export default {
     showLoginModal () {
       this.registerModal = false;
       this.loginModal = true;
+    },
+    logout () {
+      this.$http.get('http://localhost:3000/api/auth/logout')
+      .then(res => {
+        this.$store.state.authenticated = res.body.auth;
+        this.$store.state.token = res.body.token;
+        // bus.$emit('logout');
+      });
     }
   }
 };

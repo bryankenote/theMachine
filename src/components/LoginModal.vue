@@ -14,7 +14,7 @@
       </label>
     </div>
     <div class="modal-footer text-right">
-      <button class="modal-default-button" @click="submitPost()">
+      <button class="modal-default-button" @click.prevent="submitPost()">
         Login
       </button>
     </div>
@@ -23,6 +23,7 @@
 
 <script>
 import Modal from './Modal.vue';
+// import { bus } from '../main';
 
 export default {
   components: {
@@ -43,8 +44,15 @@ export default {
     },
     submitPost () {
       // Some save logic goes here...
-
-      this.close();
+      this.$http.post('http://localhost:3000/api/auth/login', {
+        email: this.username,
+        password: this.password
+      }).then(res => {
+        this.$store.state.authenticated = res.body.auth;
+        this.$store.state.token = res.body.token;
+        // bus.$emit('authenticated', true);
+        this.close();
+      });
     }
   }
 };

@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <p>Welcome to BankApp</p>
+    <button @click.prevent="getBank">test</button>
   </div>
 </template>
 
@@ -18,6 +19,13 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    getBank () {
+      this.$http.get('http://localhost:3000/banks/599256df59357611cb0b0c78', res => {
+        console.log(res);
+      });
+    }
   }
 };
 </script>

@@ -10,12 +10,20 @@ export default new Router({
     {
       path: '/',
       name: 'Hello',
-      component: Hello
+      component: Hello,
+      meta: {
+        permission: 'any',
+        fail: '/error'
+      }
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        permission: 'judge',
+        fail: '/'
+      }
     }
   ]
 });

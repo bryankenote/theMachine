@@ -18,7 +18,7 @@
       </label>
     </div>
     <div class="modal-footer text-right">
-      <button class="modal-default-button" @click="submitPost()">
+      <button class="modal-default-button" @click.prevent="submitPost()">
         Register
       </button>
     </div>
