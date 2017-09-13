@@ -5,12 +5,16 @@
     </div>
     <div class="modal-body">
       <label class="form-label">
-        Username
+        Name
         <input type="text" v-model="username" class="form-control">
       </label>
       <label class="form-label">
+        Email
+        <input type="text" v-model="email" class="form-control">
+      </label>
+      <label class="form-label">
         Password
-        <input type="password" v-model="password1" class="form-control">
+        <input type="password" v-model="password" class="form-control">
       </label>
       <label class="form-label">
         Repeat Password
@@ -36,7 +40,8 @@ export default {
   data () {
     return {
       username: '',
-      password1: '',
+      email: '',
+      password: '',
       password2: ''
     };
   },
@@ -44,13 +49,30 @@ export default {
     close () {
       this.$emit('close');
       this.username = '';
-      this.password1 = '';
+      this.email = '';
+      this.password = '';
       this.password2 = '';
     },
     submitPost () {
-      // Some save logic goes here...
-
-      this.close();
+      if (this.username === '' || this.email === '' ||
+      this.password === '' || this.password2 === '') {
+        alert('Please enter a username and password.');
+        return;
+      } else if (this.password !== this.password2) {
+        alert('Passwords do not match.');
+        return;
+      }
+      this.$http.post('http://localhost:3000/api/auth/register', {
+        username: this.username,
+        email: this.email,
+        password: this.password
+      }).then(res => {
+        console.log(res);
+        this.$store.state.authenticated = res.body.auth;
+        this.$store.state.token = res.body.token;
+        // bus.$emit('authenticated', true);
+        this.close();
+      });
     }
   }
 };
