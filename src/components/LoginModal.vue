@@ -50,11 +50,10 @@ export default {
         username: this.username,
         password: this.password
       }).then(res => {
-        console.log(res.body);
-        this.$store.state.authenticated = res.body.auth;
-        this.$store.state.token = res.body.token;
-
         if (res.body.auth) {
+          this.$store.state.auth.token = res.body.token;
+
+          /* REFACTOR */
           switch (this.username) {
             case 'judge':
               this.$access('judge');
@@ -65,6 +64,8 @@ export default {
             default:
               break;
           }
+          /* /REFACTOR */
+
           this.close();
           this.$router.push('dashboard');
         }

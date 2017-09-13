@@ -16,10 +16,6 @@ export default {
   components: {
     'app-header': AppHeader,
     'app-footer': AppFooter
-  },
-  data () {
-    return {
-    };
   }
 };
 </script>

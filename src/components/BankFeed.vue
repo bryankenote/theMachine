@@ -13,10 +13,10 @@
 
 <script>
 export default {
-  props: ['banks'],
-  data () {
-    return {
-    };
+  computed: {
+    banks () {
+      return this.$store.state.banks;
+    }
   }
 };
 </script>

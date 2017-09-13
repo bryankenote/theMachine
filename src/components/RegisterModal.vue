@@ -67,10 +67,24 @@ export default {
         email: this.email,
         password: this.password
       }).then(res => {
-        console.log(res);
-        this.$store.state.authenticated = res.body.auth;
-        this.$store.state.token = res.body.token;
-        this.close();
+        if (res.body.auth) {
+          this.$store.state.auth.token = res.body.token;
+
+          /* REFACTOR */
+          switch (this.username) {
+            case 'judge':
+              this.$access('judge');
+              break;
+            case 'wj-man':
+              this.$access('wj-man');
+              break;
+            default:
+              break;
+          }
+          /* /REFACTOR */
+
+          this.close();
+        }
       });
     }
   }

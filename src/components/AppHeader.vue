@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     auth () {
-      return this.$store.state.authenticated;
+      return this.$store.state.auth.token;
     }
   },
   data () {
@@ -60,13 +60,11 @@ export default {
     logout () {
       this.$http.get('http://localhost:3000/api/auth/logout')
       .then(res => {
-        this.$store.state.authenticated = res.body.auth;
-        this.$store.state.token = res.body.token;
         if (!res.body.auth) {
+          this.$store.state.auth.token = null;
           this.$access('unauth');
+          this.$router.push('hello');
         }
-        this.$router.push('hello');
-        // bus.$emit('logout');
       });
     }
   }

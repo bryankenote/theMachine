@@ -9,7 +9,7 @@ import VueResource from 'vue-resource';
 
 Vue.config.productionTip = false;
 
-Vue.use(Acl, { router: router, init: 'any' });
+Vue.use(Acl, { router: router, init: 'unauth' });
 Vue.use(VueResource);
 
 // export const bus = new Vue();

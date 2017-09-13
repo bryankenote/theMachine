@@ -1,27 +1,13 @@
 <template>
   <div class="hello">
     <p>Welcome to BankApp</p>
-    <button @click.prevent="getBank">test</button>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      users: [
-        {
-          '_id': '597aac6df0cacc16aedae8a6',
-          'username': 'test',
-          'email': 'test@gmail.com',
-          'password': '$2a$10$FEwUI0.C8Xr.1xh6t4TnoeNymNVEm80O0NIdMARXpRGttvrXSxXp2',
-          '__v': 0
-        }
-      ]
-    };
-  },
   methods: {
-    getBank () {
+    testAuth () {
       this.$http.get('http://localhost:3000/api/auth/me', {
         headers: {
           'x-access-token': this.$store.state.token

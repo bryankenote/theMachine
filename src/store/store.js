@@ -5,9 +5,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    authenticated: false,
-    token: undefined,
-    permission: {
+    auth: {
+      token: undefined
     }
   }
 });
