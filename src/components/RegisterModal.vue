@@ -5,20 +5,20 @@
     </div>
     <div class="modal-body">
       <label class="form-label">
-        Name
-        <input type="text" v-model="username" class="form-control">
+        Username
+        <input name="username" type="text" v-model="username" class="form-control">
       </label>
       <label class="form-label">
         Email
-        <input type="text" v-model="email" class="form-control">
+        <input name="email" type="text" v-model="email" class="form-control">
       </label>
       <label class="form-label">
         Password
-        <input type="password" v-model="password" class="form-control">
+        <input name="password" type="password" v-model="password" class="form-control">
       </label>
       <label class="form-label">
         Repeat Password
-        <input type="password" v-model="password2" class="form-control">
+        <input name="password2" type="password" v-model="password2" class="form-control">
       </label>
     </div>
     <div class="modal-footer text-right">
@@ -70,7 +70,6 @@ export default {
         console.log(res);
         this.$store.state.authenticated = res.body.auth;
         this.$store.state.token = res.body.token;
-        // bus.$emit('authenticated', true);
         this.close();
       });
     }

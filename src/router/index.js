@@ -9,11 +9,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
+      name: 'hello',
       component: Hello,
       meta: {
-        permission: 'any',
-        fail: '/error'
+        permission: 'unauth',
+        fail: '/dashboard'
       }
     },
     {

@@ -62,6 +62,10 @@ export default {
       .then(res => {
         this.$store.state.authenticated = res.body.auth;
         this.$store.state.token = res.body.token;
+        if (!res.body.auth) {
+          this.$access('unauth');
+        }
+        this.$router.push('hello');
         // bus.$emit('logout');
       });
     }
