@@ -31,6 +31,7 @@
 
 <script>
 import Modal from './Modal.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -62,13 +63,13 @@ export default {
         alert('Passwords do not match.');
         return;
       }
-      this.$http.post('http://localhost:3000/api/auth/register', {
+      axios.post('http://localhost:3000/api/auth/register', {
         username: this.username,
         email: this.email,
         password: this.password
       }).then(res => {
-        if (res.body.auth) {
-          this.$store.state.auth.token = res.body.token;
+        if (res.data.auth) {
+          this.$store.commit('setToken', res.data.token);
 
           /* REFACTOR */
           switch (this.username) {

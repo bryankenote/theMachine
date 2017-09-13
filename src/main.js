@@ -4,13 +4,11 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import { store } from './store/store';
-import Acl from 'vue-acl';
-import VueResource from 'vue-resource';
 
 Vue.config.productionTip = false;
 
+import Acl from 'vue-acl';
 Vue.use(Acl, { router: router, init: 'unauth' });
-Vue.use(VueResource);
 
 // export const bus = new Vue();
 

@@ -5,12 +5,14 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   methods: {
     testAuth () {
-      this.$http.get('http://localhost:3000/api/auth/me', {
+      axios.get('http://localhost:3000/api/auth/me', {
         headers: {
-          'x-access-token': this.$store.state.token
+          'x-access-token': this.$store.getters.token
         }
       }).then(res => {
         console.log('success: ', res);

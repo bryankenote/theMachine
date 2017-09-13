@@ -12,11 +12,20 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
-    banks () {
-      return this.$store.state.banks;
-    }
+    ...mapGetters([
+      'banks'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'getAllBanks'
+    ])
+  },
+  created () {
+    this.getAllBanks();
   }
 };
 </script>
