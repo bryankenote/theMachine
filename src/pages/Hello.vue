@@ -22,8 +22,14 @@ export default {
   },
   methods: {
     getBank () {
-      this.$http.get('http://localhost:3000/banks/599256df59357611cb0b0c78', res => {
-        console.log(res);
+      this.$http.get('http://localhost:3000/api/auth/me', {
+        headers: {
+          'x-access-token': this.$store.state.token
+        }
+      }).then(res => {
+        console.log('success: ', res);
+      }, res => {
+        console.log('error: ', res);
       });
     }
   }
