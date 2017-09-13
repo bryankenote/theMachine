@@ -5,12 +5,12 @@
     </div>
     <div class="modal-body">
       <label class="form-label">
-        Username
-        <input type="text" v-model="username" class="form-control">
+        Email
+        <input name="email" type="text" v-model="email" class="form-control" required>
       </label>
       <label class="form-label">
         Password
-        <input type="password" v-model="password" class="form-control">
+        <input name="password" type="password" v-model="password" class="form-control" required>
       </label>
     </div>
     <div class="modal-footer text-right">
@@ -32,20 +32,23 @@ export default {
   props: ['show'],
   data () {
     return {
-      username: '',
+      email: '',
       password: ''
     };
   },
   methods: {
     close () {
       this.$emit('close');
-      this.username = '';
+      this.email = '';
       this.password = '';
     },
     submitPost () {
-      // Some save logic goes here...
+      if (this.email === '' || this.password === '') {
+        alert('Please enter a username and password');
+        return;
+      }
       this.$http.post('http://localhost:3000/api/auth/login', {
-        email: this.username,
+        email: this.email,
         password: this.password
       }).then(res => {
         this.$store.state.authenticated = res.body.auth;
