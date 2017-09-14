@@ -28,16 +28,53 @@ exports.auth = {
   }
 };
 
+exports.users = {
+  apiUrl: 'http://localhost:3000/api/users',
+
+  getAll (token, callback) {
+    getAllCurried(this.apiUrl)(token, callback);
+  }
+};
+
+exports.members = {
+  apiUrl: 'http://localhost:3000/api/members',
+
+  getAll (token, callback) {
+    getAllCurried(this.apiUrl)(token, callback);
+  }
+};
+
 exports.banks = {
   apiUrl: 'http://localhost:3000/api/banks',
 
-  getAllBanks (token, callback) {
-    axios.get(this.apiUrl, {
-      headers: {
-        'x-access-token': token
-      }
-    }).then(res => {
-      callback(res.data);
-    });
+  getAll (token, callback) {
+    getAllCurried(this.apiUrl)(token, callback);
   }
 };
+
+exports.jobs = {
+  apiUrl: 'http://localhost:3000/api/jobs',
+
+  getAll (token, callback) {
+    getAllCurried(this.apiUrl)(token, callback);
+  }
+};
+
+exports.fines = {
+  apiUrl: 'http://localhost:3000/api/fines',
+
+  getAll (token, callback) {
+    getAllCurried(this.apiUrl)(token, callback);
+  }
+};
+
+let getAllCurried =
+  url =>
+    (token, callback) =>
+      axios.get(url, {
+        headers: {
+          'x-access-token': token
+        }
+      }).then(res => {
+        callback(res.data);
+      });

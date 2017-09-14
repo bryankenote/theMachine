@@ -9,7 +9,10 @@ export const store = new Vuex.Store({
     auth: {
       token: undefined
     },
-    banks: []
+    members: [],
+    banks: [],
+    jobs: [],
+    fines: []
   },
   getters: {
     token (state) {
@@ -26,7 +29,7 @@ export const store = new Vuex.Store({
   },
   actions: {
     getAllBanks (context) {
-      banks.getAllBanks(this.getters.token, banks => {
+      banks.getAll(this.getters.token, banks => {
         this.state.banks = banks;
       });
     }
