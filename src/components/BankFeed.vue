@@ -1,22 +1,23 @@
 <template>
-  <div class="bank-feed">
-    <h3>Bank Feed</h3>
-    <hr />
-    <div class="scrollable">
-      <router-link v-bind:to="'/banks/' + bank._id" v-for="bank in banks" v-bind:key="bank._id">
-        <div class="bank-slip">
-          <p>{{ bank.memberName }}</p>
-          <p><span class="slip-label">Title: </span>{{ bank.title }}</p>
-          <p><span class="slip-label">Issued On: </span>{{ bank.dateCreated }}</p>
-        </div>
-      </router-link>
-    </div>
-  </div>
+  <feed :header="'Bank Feed'">
+    <router-link v-bind:to="'/banks/' + bank._id" v-for="bank in banks" v-bind:key="bank._id">
+      <div class="feed-el">
+        <p>{{ bank.memberName }}</p>
+        <p><span class="feed-el-label">Title: </span>{{ bank.title }}</p>
+        <p><span class="feed-el-label">Issued On: </span>{{ bank.dateCreated }}</p>
+      </div>
+    </router-link>
+  </feed>
 </template>
 
 <script>
+import Feed from './abstract/Feed.vue';
 import { mapGetters, mapActions } from 'vuex';
+
 export default {
+  components: {
+    'feed': Feed
+  },
   computed: {
     ...mapGetters([
       'banks'
