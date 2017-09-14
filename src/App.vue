@@ -9,7 +9,6 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
-// import { bus } from './main';
 
 export default {
   name: 'app',
