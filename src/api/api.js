@@ -52,10 +52,10 @@ let crud = (state) => ({
 });
 
 exports.auth = {
-  apiUrl: 'http://localhost:3000/api/auth',
+  url: 'http://localhost:3000/api/auth',
 
   register (username, email, password, callback) {
-    axios.post(this.apiUrl + '/register', {
+    axios.post(this.url + '/register', {
       username: username,
       email: email,
       password: password
@@ -64,7 +64,7 @@ exports.auth = {
     });
   },
   login (username, password, callback) {
-    axios.post(this.apiUrl + '/login', {
+    axios.post(this.url + '/login', {
       username: username,
       password: password
     }).then(res => {
@@ -72,7 +72,7 @@ exports.auth = {
     });
   },
   logout (callback) {
-    axios.get(this.apiUrl + '/logout')
+    axios.get(this.url + '/logout')
     .then(res => {
       callback(res);
     });
