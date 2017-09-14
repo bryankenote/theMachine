@@ -1,6 +1,6 @@
 <template>
-  <feed :header="'Bank Feed'">
-    <router-link v-bind:to="'/banks/' + bank._id" v-for="bank in banks" v-bind:key="bank._id">
+  <feed :if="show" :header="'Bank Feed'">
+    <router-link v-bind:to="'/banks/' + bank._id" v-for="bank in unresolvedBanks" v-bind:key="bank._id">
       <div class="feed-el">
         <p>{{ bank.memberName }}</p>
         <p><span class="feed-el-label">Title: </span>{{ bank.title }}</p>
@@ -21,7 +21,15 @@ export default {
   computed: {
     ...mapGetters([
       'banks'
-    ])
+    ]),
+    unresolvedBanks () {
+      return this.banks
+      .filter(bank => !bank.isResolved)
+      .sort((a, b) => a.dateCreated < b.dateCreated);
+    },
+    show () {
+      return this.unresolvedBanks.length > 0;
+    }
   },
   methods: {
     ...mapActions([
