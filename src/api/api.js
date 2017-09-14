@@ -1,4 +1,55 @@
 const axios = require('axios');
+const _ = require('lodash');
+
+// composable crud
+let crud = (state) => ({
+  getAll (token, callback) {
+    axios.get(state.url, {
+      headers: {
+        'x-access-token': token
+      }
+    }).then(res => {
+      callback(res.data);
+    });
+  },
+  getOne (token, id, callback) {
+    axios.get(state.url + '/' + id, {
+      headers: {
+        'x-access-token': token
+      }
+    }).then(res => {
+      callback(res.data);
+    });
+  },
+  create (token, obj, callback) {
+    axios.post(state.url + '/', {
+      headers: {
+        'x-access-token': token
+      },
+      obj
+    }).then(res => {
+      callback(res.data);
+    });
+  },
+  update (token, id, callback) {
+    axios.put(state.url + '/' + id, {
+      headers: {
+        'x-access-token': token
+      }
+    }).then(res => {
+      callback(res.data);
+    });
+  },
+  delete (token, id, callback) {
+    axios.delete(state.url + '/' + id, {
+      headers: {
+        'x-access-token': token
+      }
+    }).then(res => {
+      callback(res.data);
+    });
+  }
+});
 
 exports.auth = {
   apiUrl: 'http://localhost:3000/api/auth',
@@ -28,53 +79,27 @@ exports.auth = {
   }
 };
 
-exports.users = {
-  apiUrl: 'http://localhost:3000/api/users',
+exports.users = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/users' })
+);
 
-  getAll (token, callback) {
-    getAllCurried(this.apiUrl)(token, callback);
-  }
-};
+exports.members = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/members' })
+);
 
-exports.members = {
-  apiUrl: 'http://localhost:3000/api/members',
+exports.banks = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/banks' })
+);
 
-  getAll (token, callback) {
-    getAllCurried(this.apiUrl)(token, callback);
-  }
-};
+exports.jobs = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/jobs' })
+);
 
-exports.banks = {
-  apiUrl: 'http://localhost:3000/api/banks',
-
-  getAll (token, callback) {
-    getAllCurried(this.apiUrl)(token, callback);
-  }
-};
-
-exports.jobs = {
-  apiUrl: 'http://localhost:3000/api/jobs',
-
-  getAll (token, callback) {
-    getAllCurried(this.apiUrl)(token, callback);
-  }
-};
-
-exports.fines = {
-  apiUrl: 'http://localhost:3000/api/fines',
-
-  getAll (token, callback) {
-    getAllCurried(this.apiUrl)(token, callback);
-  }
-};
-
-let getAllCurried =
-  url =>
-    (token, callback) =>
-      axios.get(url, {
-        headers: {
-          'x-access-token': token
-        }
-      }).then(res => {
-        callback(res.data);
-      });
+exports.fines = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/fines' })
+);
