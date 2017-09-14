@@ -51,6 +51,31 @@ let crud = (state) => ({
   }
 });
 
+exports.users = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/users' })
+);
+
+exports.members = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/members' })
+);
+
+exports.banks = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/banks' })
+);
+
+exports.jobs = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/jobs' })
+);
+
+exports.fines = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/fines' })
+);
+
 exports.auth = {
   url: 'http://localhost:3000/api/auth',
 
@@ -78,28 +103,3 @@ exports.auth = {
     });
   }
 };
-
-exports.users = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/users' })
-);
-
-exports.members = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/members' })
-);
-
-exports.banks = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/banks' })
-);
-
-exports.jobs = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/jobs' })
-);
-
-exports.fines = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/fines' })
-);
