@@ -31,7 +31,7 @@
 
 <script>
 import Modal from './Modal.vue';
-import api from '../api/api';
+import { auth } from '../api/api';
 
 export default {
   components: {
@@ -63,7 +63,7 @@ export default {
         alert('Passwords do not match.');
         return;
       }
-      api.register(this.username, this.email, this.password, res => {
+      auth.register(this.username, this.email, this.password, res => {
         if (res.data.auth) {
           this.$store.commit('setToken', res.data.token);
 

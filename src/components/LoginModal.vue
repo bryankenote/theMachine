@@ -23,7 +23,7 @@
 
 <script>
 import Modal from './Modal.vue';
-import api from '../api/api';
+import { auth } from '../api/api';
 
 export default {
   components: {
@@ -47,7 +47,7 @@ export default {
         alert('Please enter a username and password');
         return;
       }
-      api.login(this.username, this.password, res => {
+      auth.login(this.username, this.password, res => {
         if (res.data.auth) {
           this.$store.commit('setToken', res.data.token);
 

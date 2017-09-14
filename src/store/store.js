@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { banks } from '../api/api';
 
 Vue.use(Vuex);
 
@@ -7,7 +8,8 @@ export const store = new Vuex.Store({
   state: {
     auth: {
       token: undefined
-    }
+    },
+    banks: []
   },
   getters: {
     token (state) {
@@ -24,15 +26,9 @@ export const store = new Vuex.Store({
   },
   actions: {
     getAllBanks (context) {
-      /*
-      this.$http.get('http://localhost:3000/api/banks', {
-        headers: {
-          'x-access-token': this.state.auth.token
-        }
-      }).then(res => {
-        this.state.banks = res.body;
+      banks.getAllBanks(this.getters.token, banks => {
+        this.state.banks = banks;
       });
-      */
     }
   }
 });
