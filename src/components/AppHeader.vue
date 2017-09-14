@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '../api/api';
 import RegisterModal from '../components/RegisterModal.vue';
 import LoginModal from '../components/LoginModal.vue';
 // import { bus } from '../main';
@@ -59,8 +59,7 @@ export default {
       this.loginModal = true;
     },
     logout () {
-      axios.get('http://localhost:3000/api/auth/logout')
-      .then(res => {
+      api.logout(res => {
         if (!res.data.auth) {
           this.$store.commit('setToken', res.data.token);
           this.$access('unauth');

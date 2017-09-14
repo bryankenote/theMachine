@@ -23,7 +23,7 @@
 
 <script>
 import Modal from './Modal.vue';
-import axios from 'axios';
+import api from '../api/api';
 
 export default {
   components: {
@@ -47,10 +47,7 @@ export default {
         alert('Please enter a username and password');
         return;
       }
-      axios.post('http://localhost:3000/api/auth/login', {
-        username: this.username,
-        password: this.password
-      }).then(res => {
+      api.login(this.username, this.password, res => {
         if (res.data.auth) {
           this.$store.commit('setToken', res.data.token);
 
@@ -60,7 +57,7 @@ export default {
               this.$access('judge');
               break;
             case 'wj-man':
-              this.$access('wj-man');
+              this.$access('wjmanager');
               break;
             default:
               break;
