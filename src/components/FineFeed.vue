@@ -1,5 +1,5 @@
 <template>
-  <feed :if="show" :header="'Pending Fines'">
+  <feed :if="show" :header="'Pending Fines (' + owingMembers.length + ')'">
     <router-link v-bind:to="'/member/' + member._id" v-for="member in owingMembers" v-bind:key="member._id">
       <div class="feed-el">
         <p>{{ member.fName }} {{ member.lName }}</p>
