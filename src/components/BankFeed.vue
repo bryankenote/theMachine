@@ -1,5 +1,5 @@
 <template>
-  <feed :if="show" :header="'Bank Feed'">
+  <feed :if="show" :header="'Upcoming Banks (' + unresolvedBanks.length + ')'">
     <router-link v-bind:to="'/banks/' + bank._id" v-for="bank in unresolvedBanks" v-bind:key="bank._id">
       <div class="feed-el">
         <p>{{ bank.memberName }}</p>
@@ -42,6 +42,5 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

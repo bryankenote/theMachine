@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <app-header />
-    <router-view></router-view>
+    <div class="wrap">
+      <router-view></router-view>
+    </div>
     <app-footer />
   </div>
 </template>
@@ -74,6 +76,10 @@ html {
   box-sizing: inherit;
 }
 /* End */
+
+.flex-container {
+  display: flex;
+}
 
 .full-width {
   width: 100%;

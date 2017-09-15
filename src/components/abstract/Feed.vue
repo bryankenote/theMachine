@@ -27,7 +27,10 @@ export default {
 
 <style scoped>
 .feed {
-  width: 33%;
+  width: 30%;
+}
+hr {
+  width: 80%;
 }
 a {
   color: #222;

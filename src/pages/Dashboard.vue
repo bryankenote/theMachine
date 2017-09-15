@@ -1,22 +1,22 @@
 <template>
-  <div class="dashboard">
-    <div class="wrap">
-      <bank-feed />
-    </div>
+  <div class="dashboard flex-container">
+    <bank-feed class="flex-box"/>
+    <job-feed class="flex-box"/>
   </div>
 </template>
 
 <script>
 import BankFeed from '../components/BankFeed.vue';
+import JobFeed from '../components/JobFeed.vue';
 
 export default {
   components: {
-    'bank-feed': BankFeed
+    'bank-feed': BankFeed,
+    'job-feed': JobFeed
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .dashboard {
   padding: 30px 0;
