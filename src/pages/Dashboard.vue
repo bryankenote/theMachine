@@ -32,7 +32,7 @@ export default {
   padding: 30px 0;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .flex-container {
     flex-direction: column;
     align-items: center;
