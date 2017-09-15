@@ -3,8 +3,8 @@
     <router-link v-bind:to="'/jobs/' + job._id" v-for="job in unresolvedJobs" v-bind:key="job._id">
       <div class="feed-el">
         <p>{{ job.memberName }}</p>
-        <p><span class="feed-el-label">Title: </span>{{ job.title }}</p>
-        <p><span class="feed-el-label">Issued On: </span>{{ job.dateCreated }}</p>
+        <p><span class="feed-el-label">Title: </span>{{ job.jobName }}</p>
+        <p><span class="feed-el-label">Due On: </span>{{ job.dateDue }}</p>
       </div>
     </router-link>
   </feed>
@@ -25,7 +25,7 @@ export default {
     unresolvedJobs () {
       return this.jobs
       .filter(job => !job.isResolved)
-      .sort((a, b) => a.dateCreated < b.dateCreated);
+      .sort((a, b) => a.dateDue > b.dateDue);
     },
     show () {
       return this.unresolvedJobs.length > 0;

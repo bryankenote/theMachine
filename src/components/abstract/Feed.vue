@@ -26,9 +26,6 @@ export default {
 </style>
 
 <style scoped>
-.feed {
-  width: 30%;
-}
 hr {
   width: 80%;
 }
@@ -37,7 +34,7 @@ a {
   text-decoration: none;
 }
 .scrollable {
-  height: 500px;
+  max-height: 500px;
   overflow: auto;
 }
 ::-webkit-scrollbar

@@ -1,10 +1,9 @@
 <template>
-  <feed :if="show" :header="'Bank Feed'">
-    <router-link v-bind:to="'/banks/' + bank._id" v-for="bank in unresolvedBanks" v-bind:key="bank._id">
+  <feed :if="show" :header="'Pending Fines'">
+    <router-link v-bind:to="'/member/' + member._id" v-for="member in owingMembers" v-bind:key="member._id">
       <div class="feed-el">
-        <p>{{ bank.memberName }}</p>
-        <p><span class="feed-el-label">Title: </span>{{ bank.title }}</p>
-        <p><span class="feed-el-label">Issued On: </span>{{ bank.dateCreated }}</p>
+        <p>{{ member.fName }} {{ member.lName }}</p>
+        <p><span class="feed-el-label">Balance: </span>${{ member.totalFines - member.finesPaid }}</p>
       </div>
     </router-link>
   </feed>
@@ -20,24 +19,26 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'fines'
+      'members'
     ]),
-    unresolvedBanks () {
-      return this.fines
-      .filter(bank => !fine.isResolved)
-      .sort((a, b) => a.dateCreated < b.dateCreated);
+    owingMembers () {
+      return this.members
+      // filter out members with no balance
+      .filter(m => m.totalFines > m.finesPaid)
+      // sort by balance in descending order
+      .sort((a, b) => (a.totalFines - a.finesPaid) < (b.totalFines - b.finesPaid));
     },
     show () {
-      return this.unresolvedBanks.length > 0;
+      return this.owingMembers.length > 0;
     }
   },
   methods: {
     ...mapActions([
-      'getAllBanks'
+      'getAllMembers'
     ])
   },
   created () {
-    this.getAllBanks();
+    this.getAllMembers();
   }
 };
 </script>
