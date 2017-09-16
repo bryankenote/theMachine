@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
       token: undefined
     },
     members: [],
+    member: {},
     banks: [],
     jobs: [],
     fines: []
@@ -20,6 +21,9 @@ export const store = new Vuex.Store({
     },
     members (state) {
       return state.members;
+    },
+    member (state) {
+      return state.member;
     },
     banks (state) {
       return state.banks;
@@ -40,6 +44,11 @@ export const store = new Vuex.Store({
     getAllMembers (context) {
       members.getAll(this.getters.token, members => {
         this.state.members = members;
+      });
+    },
+    getOneMember (context, id) {
+      members.getOne(this.getters.token, id, member => {
+        this.state.member = member;
       });
     },
     getAllBanks (context) {

@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Hello from '@/pages/Hello';
 import Dashboard from '@/pages/Dashboard';
+import Members from '@/pages/Members';
+import Member from '@/pages/Member';
 
 Vue.use(Router);
 
@@ -20,6 +22,24 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      meta: {
+        permission: 'judge',
+        fail: '/'
+      }
+    },
+    {
+      path: '/members',
+      name: 'members',
+      component: Members,
+      meta: {
+        permission: 'judge',
+        fail: '/'
+      }
+    },
+    {
+      path: '/members/:id',
+      name: 'member',
+      component: Member,
       meta: {
         permission: 'judge',
         fail: '/'
