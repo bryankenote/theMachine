@@ -23,7 +23,7 @@ export default new Router({
       name: 'dashboard',
       component: Dashboard,
       meta: {
-        permission: 'judge',
+        permission: 'judge|wjmanager',
         fail: '/'
       }
     },
@@ -32,7 +32,7 @@ export default new Router({
       name: 'members',
       component: Members,
       meta: {
-        permission: 'judge',
+        permission: 'judge|wjmanager',
         fail: '/'
       }
     },
@@ -41,7 +41,7 @@ export default new Router({
       name: 'member',
       component: Member,
       meta: {
-        permission: 'judge',
+        permission: 'judge|wjmanager',
         fail: '/'
       }
     }
