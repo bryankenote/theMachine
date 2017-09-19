@@ -3,21 +3,21 @@
     <h1>Judge</h1>
     <div class="flex-container">
       <bank-feed class="flex-box"/>
-      <job-feed class="flex-box"/>
+      <bank-job-feed class="flex-box"/>
       <fine-feed class="flex-box"/>
     </div>
   </div>
 </template>
 
 <script>
-import BankFeed from '../BankFeed.vue';
-import JobFeed from '../JobFeed.vue';
+import bankFeed from '../BankFeed.vue';
+import bankJobFeed from '../BankJobFeed.vue';
 import fineFeed from '../FineFeed.vue';
 
 export default {
   components: {
-    'bank-feed': BankFeed,
-    'job-feed': JobFeed,
+    'bank-feed': bankFeed,
+    'bank-job-feed': bankJobFeed,
     'fine-feed': fineFeed
   }
 };

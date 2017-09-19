@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { members, banks, jobs, fines } from '../api/api';
+import { members, banks, bankJobs, workJobs, fines } from '../api/api';
 
 Vue.use(Vuex);
 
@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
     },
     members: [],
     banks: [],
-    jobs: [],
+    bankJobs: [],
+    workJobs: [],
     fines: []
   },
   getters: {
@@ -27,8 +28,11 @@ export const store = new Vuex.Store({
     banks (state) {
       return state.banks;
     },
-    jobs (state) {
-      return state.jobs;
+    bankJobs (state) {
+      return state.bankJobs;
+    },
+    workJobs (state) {
+      return state.workJobs;
     },
     fines (state) {
       return state.fines;
@@ -44,8 +48,11 @@ export const store = new Vuex.Store({
     setBanks (state, banks) {
       state.banks = banks;
     },
-    setJobs (state, jobs) {
-      state.jobs = jobs;
+    setBankJobs (state, bankJobs) {
+      state.bankJobs = bankJobs;
+    },
+    setWorkJobs (state, workJobs) {
+      state.workJobs = workJobs;
     },
     setFines (state, fines) {
       state.fines = fines;
@@ -62,9 +69,14 @@ export const store = new Vuex.Store({
         context.commit('setBanks', banks);
       });
     },
-    getAllJobs (context) {
-      jobs.getAll(this.getters.token, jobs => {
-        context.commit('setJobs', jobs);
+    getAllBankJobs (context) {
+      bankJobs.getAll(this.getters.token, bankJobs => {
+        context.commit('setBankJobs', bankJobs);
+      });
+    },
+    getAllWorkJobs (context) {
+      workJobs.getAll(this.getters.token, workJobs => {
+        context.commit('setWorkJobs', workJobs);
       });
     },
     getAllFines (context) {

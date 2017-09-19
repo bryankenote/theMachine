@@ -4,7 +4,8 @@
       <div class="wrap">
         <div class="pages">
           <router-link to="/">BankApp</router-link>
-          <router-link v-if="auth" to="/members">Manage Members</router-link>
+          <router-link v-if="auth" to="/members">Members</router-link>
+          <router-link v-if="$can('wjmanager')" to="/workjobs">Workjobs</router-link>
         </div>
         <div class="user">
           <button v-if="!auth" @click="showRegisterModal">

@@ -76,9 +76,14 @@ exports.banks = _.assign(
   crud({ url: 'http://localhost:3000/api/banks' })
 );
 
-exports.jobs = _.assign(
+exports.bankJobs = _.assign(
   {},
-  crud({ url: 'http://localhost:3000/api/jobs' })
+  crud({ url: 'http://localhost:3000/api/bank-jobs' })
+);
+
+exports.workJobs = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/work-jobs' })
 );
 
 exports.fines = _.assign(

@@ -53,15 +53,15 @@ export default {
     ...mapGetters([
       'members',
       'banks',
-      'fines',
-      'jobs'
+      // 'bankJobs',
+      'fines'
     ])
   },
   methods: {
     ...mapActions([
       'getAllMembers',
-      'getAllBanks',
-      'getAllJobs'
+      // 'getAllBankJobs',
+      'getAllBanks'
     ]),
     getTotalBanks (memberId) {
       return this.banks
@@ -76,23 +76,23 @@ export default {
     /*
     ,
     getTotalJobs (memberId) {
-      return this.jobs
-      .filter(job => job.member === memberId)
+      return this.bankJobs
+      .filter(bankJob => bankJob.member === memberId)
       .length;
     },
     getUnresolvedJobs (memberId) {
-      return this.jobs
-      .filter(job => job.member === memberId && !job.isResolved)
+      return this.bankJobs
+      .filter(bankJob => bankJob.member === memberId && !bankJob.isResolved)
       .length;
     },
     getCompletedJobs (memberId) {
-      return this.jobs
-      .filter(job => job.member === memberId && job.completed)
+      return this.bankJobs
+      .filter(bankJob => bankJob.member === memberId && bankJob.completed)
       .length;
     },
     getJobsNotCompleted (memberId) {
-      return this.jobs
-      .filter(job => job.member === memberId && !job.completed)
+      return this.bankJobs
+      .filter(bankJob => bankJob.member === memberId && !bankJob.completed)
       .length;
     }
     */
@@ -100,7 +100,7 @@ export default {
   created () {
     this.getAllMembers();
     this.getAllBanks();
-    // this.getAllJobs();
+    // this.getAllBankJobs();
     // this.getAllFines();
   }
 };
