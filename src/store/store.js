@@ -10,7 +10,6 @@ export const store = new Vuex.Store({
       token: undefined
     },
     members: [],
-    member: {},
     banks: [],
     jobs: [],
     fines: []
@@ -38,32 +37,39 @@ export const store = new Vuex.Store({
   mutations: {
     setToken (state, token) {
       state.auth.token = token;
+    },
+    setMembers (state, members) {
+      state.members = members;
+    },
+    setBanks (state, banks) {
+      state.banks = banks;
+    },
+    setJobs (state, jobs) {
+      state.jobs = jobs;
+    },
+    setFines (state, fines) {
+      state.fines = fines;
     }
   },
   actions: {
     getAllMembers (context) {
       members.getAll(this.getters.token, members => {
-        this.state.members = members;
-      });
-    },
-    getOneMember (context, id) {
-      members.getOne(this.getters.token, id, member => {
-        this.state.member = member;
+        context.commit('setMembers', members);
       });
     },
     getAllBanks (context) {
       banks.getAll(this.getters.token, banks => {
-        this.state.banks = banks;
+        context.commit('setBanks', banks);
       });
     },
     getAllJobs (context) {
       jobs.getAll(this.getters.token, jobs => {
-        this.state.jobs = jobs;
+        context.commit('setJobs', jobs);
       });
     },
     getAllFines (context) {
       fines.getAll(this.getters.token, fines => {
-        this.state.fines = fines;
+        context.commit('setFines', fines);
       });
     }
   }

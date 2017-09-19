@@ -1,6 +1,7 @@
 <template>
   <div class="member">
     <p>{{ member.fName }} {{ member.lName }}</p>
+    <p>${{ finesForMember }}</p>
   </div>
 </template>
 
@@ -10,16 +11,29 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
     ...mapGetters([
-      'member'
-    ])
+      'members',
+      'fines'
+    ]),
+    finesForMember () {
+      return this.fines
+      // fines for member
+      .filter(fine => fine.member === this.$route.params.id)
+      // total fine
+      .reduce((acu, fine) => acu + fine.amount, 0);
+    },
+    member () {
+      return this.members.filter(member => member._id === this.$route.params.id)[0];
+    }
   },
   methods: {
     ...mapActions([
-      'getOneMember'
+      'getAllMembers',
+      'getAllFines'
     ])
   },
   created () {
-    this.getOneMember(this.$route.params.id);
+    this.getAllMembers();
+    this.getAllFines();
   }
 };
 </script>
