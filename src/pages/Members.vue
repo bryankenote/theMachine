@@ -30,8 +30,8 @@
         <td class="fname-data data" contenteditable="true">{{ member.fName }}</td>
         <td class="lname-data data" contenteditable="true">{{ member.lName }}</td>
         <td class="email-data data" contenteditable="true">{{ member.email }}</td>
-        <td class="total-banks-data data" contenteditable="true">{{ member.totalBanks }}</td>
-        <td class="unresolved-banks-data data" contenteditable="true">{{ member.totalBanks - member.banksResolved }}</td>
+        <td class="total-banks-data data" contenteditable="true">{{ getTotalBanks(member._id) }}</td>
+        <td class="unresolved-banks-data data" contenteditable="true">{{ getUnresolvedBanks(member._id) }}</td>
         <td class="total-fines-data data" contenteditable="true">${{ member.totalFines }}</td>
         <td class="fines-owed-data data" contenteditable="true">${{ member.totalFines - member.finesPaid }}</td>
         <td>
@@ -53,16 +53,55 @@ export default {
     ...mapGetters([
       'members',
       'banks',
-      'fines'
+      'fines',
+      'jobs'
     ])
   },
   methods: {
     ...mapActions([
-      'getAllMembers'
-    ])
+      'getAllMembers',
+      'getAllBanks',
+      'getAllJobs'
+    ]),
+    getTotalBanks (memberId) {
+      return this.banks
+      .filter(bank => bank.member === memberId)
+      .length;
+    },
+    getUnresolvedBanks (memberId) {
+      return this.banks
+      .filter(bank => bank.member === memberId && !bank.isResolved)
+      .length;
+    }
+    /*
+    ,
+    getTotalJobs (memberId) {
+      return this.jobs
+      .filter(job => job.member === memberId)
+      .length;
+    },
+    getUnresolvedJobs (memberId) {
+      return this.jobs
+      .filter(job => job.member === memberId && !job.isResolved)
+      .length;
+    },
+    getCompletedJobs (memberId) {
+      return this.jobs
+      .filter(job => job.member === memberId && job.completed)
+      .length;
+    },
+    getJobsNotCompleted (memberId) {
+      return this.jobs
+      .filter(job => job.member === memberId && !job.completed)
+      .length;
+    }
+    */
   },
   created () {
     this.getAllMembers();
+    this.getAllBanks();
+    // this.getAllJobs();
+    // this.getAllFines();
   }
 };
 </script>
