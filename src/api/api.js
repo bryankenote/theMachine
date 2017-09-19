@@ -21,6 +21,16 @@ let crud = (state) => ({
       callback(res.data);
     });
   },
+  find (token, id, query, callback) {
+    axios.get(state.url + '/find' + id, {
+      headers: {
+        'x-access-token': token
+      },
+      query
+    }).then(res => {
+      callback(res.data);
+    });
+  },
   create (token, obj, callback) {
     axios.post(state.url + '/', {
       headers: {
