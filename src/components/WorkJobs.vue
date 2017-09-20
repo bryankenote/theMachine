@@ -1,6 +1,6 @@
 <template>
   <app-table>
-    <tr slot="thead">
+    <tr slot="thead" v-if="workJobs.length > 0">
       <th>Job</th>
       <th>Description</th>
       <th>Members</th>
@@ -14,36 +14,10 @@
         <td class="data">${{ getMembersForJob(workJob.members) }}</td>
       </router-link>
     </tr>
-</app-table>
+  </app-table>
 </template>
 
 <script>
-/*
-  members: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Member',
-    required: false
-  }],
-  jobName: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  tasks: [{
-    type: String
-  }],
-  dateCreated: {
-    type: Date,
-    default: Date.now
-  },
-  due: {
-    type: Date,
-    required: true
-  }
-*/
 import { mapGetters, mapActions } from 'vuex';
 import appTable from '../components/abstract/AppTable.vue';
 
@@ -54,7 +28,7 @@ export default {
   computed: {
     ...mapGetters([
       'members',
-      'workJobs',
+      'workJobs'
     ])
   },
   methods: {
@@ -77,14 +51,9 @@ export default {
 @media
 only screen and (max-width: 768px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
-	td:nth-of-type(1):before { content: "Member Details"; }
-	td:nth-of-type(2):before { content: "First Name"; }
-	td:nth-of-type(3):before { content: "Last Name"; }
-	td:nth-of-type(4):before { content: "Email"; }
-	td:nth-of-type(5):before { content: "Total Banks"; }
-	td:nth-of-type(6):before { content: "Banks Resolved"; }
-	td:nth-of-type(7):before { content: "Total Fines"; }
-  td:nth-of-type(8):before { content: "Fines Owed"; }
-  td:nth-of-type(9):before { content: "Delete"; }
+	td:nth-of-type(1):before { content: "Job"; }
+	td:nth-of-type(2):before { content: "Description"; }
+	td:nth-of-type(3):before { content: "Due"; }
+	td:nth-of-type(4):before { content: "Members"; }
 }
 </style>

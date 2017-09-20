@@ -1,11 +1,18 @@
 <template>
   <div class="dashboard">
     <h1>Work Job Manager</h1>
+    <button>Create Job</button>
+    <work-jobs />
   </div>
 </template>
 
 <script>
+import workJobs from '../WorkJobs.vue';
+
 export default {
+  components: {
+    'work-jobs': workJobs
+  }
 };
 </script>
 
