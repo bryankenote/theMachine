@@ -1,17 +1,25 @@
 <template>
   <div class="dashboard">
     <h1>Work Job Manager</h1>
-    <button>Create Job</button>
+    <button @click="showCreateModal = !showCreateModal">Create Job</button>
+    <create-work-job-modal v-show="showCreateModal" @close="showCreateModal = false"/>
     <work-jobs />
   </div>
 </template>
 
 <script>
 import workJobs from '../../tables/WorkJobs.vue';
+import createWorkJobModal from '../../modals/CreateWorkJob.vue';
 
 export default {
   components: {
-    'work-jobs': workJobs
+    'work-jobs': workJobs,
+    'create-work-job-modal': createWorkJobModal
+  },
+  data () {
+    return {
+      showCreateModal: false
+    };
   }
 };
 </script>

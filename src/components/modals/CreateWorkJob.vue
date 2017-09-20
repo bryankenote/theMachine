@@ -1,88 +1,63 @@
 <template>
   <modal :show="show" @close="close">
     <div class="modal-header">
-      <h3>Register</h3>
+      <h3>Create Work Job</h3>
     </div>
     <div class="modal-body">
       <label class="form-label">
         Job Name
-        <input name="username" type="text" v-model="username" class="form-control">
+        <input name="name" type="text" v-model="jobName" class="form-control">
       </label>
       <label class="form-label">
         Job Description
-        <input name="email" type="text" v-model="email" class="form-control">
+        <input name="description" type="text" v-model="description" class="form-control">
       </label>
       <label class="form-label">
         Tasks
-        <input name="password" type="password" v-model="password" class="form-control">
+        <input name="tasks" type="password" class="form-control">
       </label>
       <label class="form-label">
-        Due
-        <input name="password2" type="password" v-model="password2" class="form-control">
+        Time
+        <input name="time" type="time" v-model="time" class="form-control">
       </label>
+      <day-selector />
     </div>
     <div class="modal-footer text-right">
       <button class="modal-default-button" @click.prevent="submitPost()">
-        Register
+        Create
       </button>
     </div>
   </modal>
 </template>
 
 <script>
-import Modal from './abstract/Modal.vue';
-import { auth } from '../api/api';
+import Modal from '../abstract/Modal.vue';
+import daySelector from '../inputs/DaySelector.vue';
 
 export default {
   components: {
-    'modal': Modal
+    'modal': Modal,
+    'day-selector': daySelector
   },
   props: ['show'],
   data () {
     return {
-      username: '',
-      email: '',
-      password: '',
-      password2: ''
+      jobName: '',
+      description: '',
+      tasks: [],
+      time: ''
     };
   },
   methods: {
     close () {
       this.$emit('close');
-      this.username = '';
-      this.email = '';
-      this.password = '';
-      this.password2 = '';
+      this.jobName = '';
+      this.description = '';
+      this.tasks = [];
+      this.time = '';
     },
     submitPost () {
-      if (this.username === '' || this.email === '' ||
-      this.password === '' || this.password2 === '') {
-        alert('Please enter a username and password.');
-        return;
-      } else if (this.password !== this.password2) {
-        alert('Passwords do not match.');
-        return;
-      }
-      auth.register(this.username, this.email, this.password, res => {
-        if (res.data.auth) {
-          this.$store.commit('setToken', res.data.token);
-
-          /* REFACTOR */
-          switch (this.username) {
-            case 'judge':
-              this.$access('judge');
-              break;
-            case 'wj-man':
-              this.$access('wjmanager');
-              break;
-            default:
-              break;
-          }
-          /* /REFACTOR */
-
-          this.close();
-        }
-      });
+      this.close();
     }
   }
 };
