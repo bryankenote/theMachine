@@ -20,7 +20,9 @@
         Time
         <input name="time" type="time" v-model="time" class="form-control">
       </label>
-      <day-selector />
+
+      <day-selector :week="week" />
+
     </div>
     <div class="modal-footer text-right">
       <button class="modal-default-button" @click.prevent="submitPost()">
@@ -45,7 +47,16 @@ export default {
       jobName: '',
       description: '',
       tasks: [],
-      time: ''
+      time: '',
+      week: [
+        { name: 'sunday', active: false },
+        { name: 'monday', active: false },
+        { name: 'tuesday', active: false },
+        { name: 'wednesday', active: false },
+        { name: 'thursday', active: false },
+        { name: 'friday', active: false },
+        { name: 'saturday', active: false }
+      ]
     };
   },
   methods: {
@@ -57,7 +68,8 @@ export default {
       this.time = '';
     },
     submitPost () {
-      this.close();
+      console.log(this.jobName, this.description, this.tasks, this.time, this.week);
+      // this.close();
     }
   }
 };

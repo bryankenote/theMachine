@@ -1,47 +1,44 @@
 <template>
-  <div>
+  <div class="day-selector">
     <label class="form-label">
       Day
     </label>
-    <label>
-      S
-      <input name="sunday" type="checkbox" v-bind:value="{ day: 'sunday' }" class="form-control">
-    </label>
-    <label>
-      M
-      <input name="monday" type="checkbox" v-bind:value="{ day: 'monday' }" class="form-control">
-    </label>
-    <label>
-      T
-      <input name="tuesday" type="checkbox" v-bind:value="{ day: 'tuesday' }" class="form-control">
-    </label>
-    <label>
-      W
-      <input name="wednesday" type="checkbox" v-bind:value="{ day: 'wednesday' }" class="form-control">
-    </label>
-    <label>
-      T
-      <input name="thursday" type="checkbox" v-bind:value="{ day: 'thursday' }" class="form-control">
-    </label>
-    <label>
-      F
-      <input name="friday" type="checkbox" v-bind:value="{ day: 'friday' }" class="form-control">
-    </label>
-    <label>
-      S
-      <input name="saturday" type="checkbox" v-bind:value="{ day: 'saturday' }" class="form-control">
-    </label>
+    <div class="flex-container">
+      <button v-for="day in week" v-bind:name="day.name" v-bind:value="day.name" v-bind:key="day.name" class="btn" @click="day.active = !day.active" :class="{active: day.active}">
+        {{ day.name[0].toUpperCase() }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-    };
-  }
+  props: ['week']
 };
 </script>
 
 <style scoped>
+.flex-container {
+  justify-content: space-around;
+}
+.btn {
+  background: transparent;
+  border: none;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+}
+.btn:hover {
+  background: #DDD;
+}
+.btn:focus {
+  outline: none;
+}
+/*
+.btn:has(> input[type=checkbox]:checked) {
+*/
+.btn.active {
+  background-color: #2c3e50;
+  color: white;
+}
 </style>
