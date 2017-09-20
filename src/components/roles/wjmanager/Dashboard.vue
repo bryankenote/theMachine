@@ -1,24 +1,17 @@
 <template>
   <div class="dashboard">
-    <h1>Judge</h1>
-    <div class="flex-container">
-      <bank-feed class="flex-box"/>
-      <bank-job-feed class="flex-box"/>
-      <fine-feed class="flex-box"/>
-    </div>
+    <h1>Work Job Manager</h1>
+    <button>Create Job</button>
+    <work-jobs />
   </div>
 </template>
 
 <script>
-import bankFeed from '../BankFeed.vue';
-import bankJobFeed from '../BankJobFeed.vue';
-import fineFeed from '../FineFeed.vue';
+import workJobs from '../../tables/WorkJobs.vue';
 
 export default {
   components: {
-    'bank-feed': bankFeed,
-    'bank-job-feed': bankJobFeed,
-    'fine-feed': fineFeed
+    'work-jobs': workJobs
   }
 };
 </script>

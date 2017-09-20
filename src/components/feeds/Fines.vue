@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Feed from './abstract/Feed.vue';
+import Feed from '../abstract/Feed.vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {

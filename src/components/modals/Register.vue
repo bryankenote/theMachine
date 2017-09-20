@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import Modal from './abstract/Modal.vue';
-import { auth } from '../api/api';
+import Modal from '../abstract/Modal.vue';
+import { auth } from '../../api/api';
 
 export default {
   components: {

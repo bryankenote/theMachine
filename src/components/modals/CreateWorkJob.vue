@@ -1,21 +1,29 @@
 <template>
   <modal :show="show" @close="close">
     <div class="modal-header">
-      <h3>Login</h3>
+      <h3>Register</h3>
     </div>
     <div class="modal-body">
       <label class="form-label">
-        Username
-        <input name="username" type="text" v-model="username" class="form-control" required>
+        Job Name
+        <input name="username" type="text" v-model="username" class="form-control">
       </label>
       <label class="form-label">
-        Password
-        <input name="password" type="password" v-model="password" class="form-control" required>
+        Job Description
+        <input name="email" type="text" v-model="email" class="form-control">
+      </label>
+      <label class="form-label">
+        Tasks
+        <input name="password" type="password" v-model="password" class="form-control">
+      </label>
+      <label class="form-label">
+        Due
+        <input name="password2" type="password" v-model="password2" class="form-control">
       </label>
     </div>
     <div class="modal-footer text-right">
       <button class="modal-default-button" @click.prevent="submitPost()">
-        Login
+        Register
       </button>
     </div>
   </modal>
@@ -33,21 +41,29 @@ export default {
   data () {
     return {
       username: '',
-      password: ''
+      email: '',
+      password: '',
+      password2: ''
     };
   },
   methods: {
     close () {
       this.$emit('close');
       this.username = '';
+      this.email = '';
       this.password = '';
+      this.password2 = '';
     },
     submitPost () {
-      if (this.username === '' || this.password === '') {
-        alert('Please enter a username and password');
+      if (this.username === '' || this.email === '' ||
+      this.password === '' || this.password2 === '') {
+        alert('Please enter a username and password.');
+        return;
+      } else if (this.password !== this.password2) {
+        alert('Passwords do not match.');
         return;
       }
-      auth.login(this.username, this.password, res => {
+      auth.register(this.username, this.email, this.password, res => {
         if (res.data.auth) {
           this.$store.commit('setToken', res.data.token);
 
@@ -56,7 +72,7 @@ export default {
             case 'judge':
               this.$access('judge');
               break;
-            case 'wjmanager':
+            case 'wj-man':
               this.$access('wjmanager');
               break;
             default:
@@ -65,7 +81,6 @@ export default {
           /* /REFACTOR */
 
           this.close();
-          this.$router.push('dashboard');
         }
       });
     }

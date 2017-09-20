@@ -26,8 +26,8 @@
 
 <script>
 import { auth } from '../api/api';
-import RegisterModal from '../components/RegisterModal.vue';
-import LoginModal from '../components/LoginModal.vue';
+import RegisterModal from '../components/modals/Register.vue';
+import LoginModal from '../components/modals/Login.vue';
 // import { bus } from '../main';
 
 export default {

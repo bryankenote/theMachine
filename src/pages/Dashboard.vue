@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import judgeDash from '../components/judge/Dashboard.vue';
-import wjmanagerDash from '../components/wjmanager/Dashboard.vue';
+import judgeDash from '../components/roles/judge/Dashboard.vue';
+import wjmanagerDash from '../components/roles/wjmanager/Dashboard.vue';
 
 export default {
   components: {

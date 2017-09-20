@@ -19,7 +19,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import appTable from '../components/abstract/AppTable.vue';
+import appTable from '../../components/abstract/AppTable.vue';
 
 export default {
   components: {
