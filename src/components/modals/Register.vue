@@ -30,8 +30,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Modal from '../abstract/Modal.vue';
-import { auth } from '../../api/api';
 
 export default {
   components: {
@@ -47,6 +47,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'register'
+    ]),
     close () {
       this.$emit('close');
       this.username = '';
@@ -63,24 +66,27 @@ export default {
         alert('Passwords do not match.');
         return;
       }
-      auth.register(this.username, this.email, this.password, res => {
-        if (res.data.auth) {
-          this.$store.commit('setToken', res.data.token);
+      this.register({
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        callback: auth => {
+          if (auth) {
+            /* REFACTOR */
+            switch (this.username) {
+              case 'judge':
+                this.$access('judge');
+                break;
+              case 'wj-man':
+                this.$access('wjmanager');
+                break;
+              default:
+                break;
+            }
+            /* /REFACTOR */
 
-          /* REFACTOR */
-          switch (this.username) {
-            case 'judge':
-              this.$access('judge');
-              break;
-            case 'wj-man':
-              this.$access('wjmanager');
-              break;
-            default:
-              break;
+            this.close();
           }
-          /* /REFACTOR */
-
-          this.close();
         }
       });
     }

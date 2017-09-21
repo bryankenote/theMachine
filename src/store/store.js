@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { members, banks, bankJobs, workJobs, fines } from '../api/api';
+import { auth, members, banks, bankJobs, workJobs, fines } from '../api/api';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
     auth: {
-      token: undefined
+      username: null,
+      token: null
     },
     members: [],
     banks: [],
@@ -39,8 +40,9 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
-    setToken (state, token) {
-      state.auth.token = token;
+    setCredentials (state, credentials) {
+      state.auth.username = credentials.username;
+      state.auth.token = credentials.token;
     },
     setMembers (state, members) {
       state.members = members;
@@ -59,6 +61,22 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    register (context, state) {
+      auth.register(state.username, state.email, state.password, res => {
+        if (res.data.auth) {
+          context.commit('setCredentials', { username: state.username, token: res.data.token });
+        }
+        state.callback(res.data.auth);
+      });
+    },
+    login (context, state) {
+      auth.login(state.username, state.password, res => {
+        if (res.data.auth) {
+          context.commit('setCredentials', { username: state.username, token: res.data.token });
+        }
+        state.callback(res.data.auth);
+      });
+    },
     getAllMembers (context) {
       members.getAll(this.getters.token, members => {
         context.commit('setMembers', members);

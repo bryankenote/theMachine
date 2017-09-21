@@ -22,8 +22,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Modal from '../abstract/Modal.vue';
-import { auth } from '../../api/api';
 
 export default {
   components: {
@@ -37,6 +37,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'login'
+    ]),
     close () {
       this.$emit('close');
       this.username = '';
@@ -47,25 +50,27 @@ export default {
         alert('Please enter a username and password');
         return;
       }
-      auth.login(this.username, this.password, res => {
-        if (res.data.auth) {
-          this.$store.commit('setToken', res.data.token);
+      this.login({
+        username: this.username,
+        password: this.password,
+        callback: auth => {
+          if (auth) {
+            /* REFACTOR */
+            switch (this.username) {
+              case 'judge':
+                this.$access('judge');
+                break;
+              case 'wjmanager':
+                this.$access('wjmanager');
+                break;
+              default:
+                break;
+            }
+            /* /REFACTOR */
 
-          /* REFACTOR */
-          switch (this.username) {
-            case 'judge':
-              this.$access('judge');
-              break;
-            case 'wjmanager':
-              this.$access('wjmanager');
-              break;
-            default:
-              break;
+            this.close();
+            this.$router.push('dashboard');
           }
-          /* /REFACTOR */
-
-          this.close();
-          this.$router.push('dashboard');
         }
       });
     }
