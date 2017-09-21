@@ -77,6 +77,14 @@ export const store = new Vuex.Store({
         state.callback(res.data.auth);
       });
     },
+    logout (context, state) {
+      auth.logout(res => {
+        if (!res.data.auth) {
+          context.commit('setCredentials', { username: null, token: null });
+        }
+        state.callback(res.data.auth);
+      });
+    },
     getAllMembers (context) {
       members.getAll(this.getters.token, members => {
         context.commit('setMembers', members);

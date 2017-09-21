@@ -4,31 +4,30 @@
       <div class="wrap">
         <div class="pages">
           <router-link to="/">BankApp</router-link>
-          <router-link v-if="auth" to="/members">Members</router-link>
+          <router-link v-if="token" to="/members">Members</router-link>
           <router-link v-if="$can('wjmanager')" to="/workjobs">Workjobs</router-link>
         </div>
         <div class="user">
-          <button v-if="!auth" @click="showRegisterModal">
+          <button v-if="!token" @click="showRegisterModal">
             Register
           </button>
-          <button v-if="!auth" @click="showLoginModal">
+          <button v-if="!token" @click="showLoginModal">
             Login
           </button>
-          <button v-if="auth" @click.prevent="logout">Logout</button>
+          <button v-if="token" @click.prevent="logoff">Logout</button>
         </div>
       </div>
     </nav>
 
-    <register-modal v-show="registerModal" @close="closeModal"/>
-    <login-modal v-show="loginModal" @close="closeModal"/>
+    <register-modal v-show="registerModal" @close="closeModal" />
+    <login-modal v-show="loginModal" @close="closeModal" />
   </header>
 </template>
 
 <script>
-import { auth } from '../api/api';
+import { mapGetters, mapActions } from 'vuex';
 import RegisterModal from '../components/modals/Register.vue';
 import LoginModal from '../components/modals/Login.vue';
-// import { bus } from '../main';
 
 export default {
   components: {
@@ -36,9 +35,9 @@ export default {
     'login-modal': LoginModal
   },
   computed: {
-    auth () {
-      return this.$store.state.auth.token;
-    }
+    ...mapGetters([
+      'token'
+    ])
   },
   data () {
     return {
@@ -47,6 +46,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'logout'
+    ]),
     closeModal () {
       this.registerModal = false;
       this.loginModal = false;
@@ -59,12 +61,13 @@ export default {
       this.registerModal = false;
       this.loginModal = true;
     },
-    logout () {
-      auth.logout(res => {
-        if (!res.data.auth) {
-          this.$store.commit('setToken', res.data.token);
-          this.$access('unauth');
-          this.$router.push('hello');
+    logoff () {
+      this.logout({
+        callback: auth => {
+          if (!auth) {
+            this.$access('unauth');
+            this.$router.push('hello');
+          }
         }
       });
     }
@@ -73,31 +76,37 @@ export default {
 </script>
 
 <style scoped>
-  nav {
-    background-color: #F8F8F8;
-    border: 1px solid #E7E7E7;
-    list-style: none;
-    padding: 5px 10px;
-  }
-  nav, .wrap {
-    display: flex;
-    justify-content: space-between;
-  }
-  nav a {
-    color: #777;
-    text-decoration: none;
-    padding: 0 5px;
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    color: #777;
-    font-size: 1em;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  button:focus {
-    outline: none;
-  }
+nav {
+  background-color: #F8F8F8;
+  border: 1px solid #E7E7E7;
+  list-style: none;
+  padding: 5px 10px;
+}
+
+nav,
+.wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav a {
+  color: #777;
+  text-decoration: none;
+  padding: 0 5px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: #777;
+  font-size: 1em;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
 </style>
