@@ -10,12 +10,13 @@
       </label>
       <label class="form-label">
         Job Description
-        <input name="description" type="text" v-model="description" class="form-control">
+        <textarea name="description" v-model="description" class="form-control"></textarea>
       </label>
-      <label class="form-label">
+
+      <list :list="tasks">
         Tasks
-        <input name="tasks" type="password" class="form-control">
-      </label>
+      </list>
+
       <label class="form-label">
         Time
         <input name="time" type="time" v-model="time" class="form-control">
@@ -33,13 +34,15 @@
 </template>
 
 <script>
-import Modal from '../abstract/Modal.vue';
+import modal from '../abstract/Modal.vue';
 import daySelector from '../inputs/DaySelector.vue';
+import list from '../inputs/List.vue';
 
 export default {
   components: {
-    'modal': Modal,
-    'day-selector': daySelector
+    'modal': modal,
+    'day-selector': daySelector,
+    'list': list
   },
   props: ['show'],
   data () {
@@ -76,4 +79,8 @@ export default {
 </script>
 
 <style scoped>
+textarea {
+  min-height: 3em;
+  min-width: 100%;
+}
 </style>
