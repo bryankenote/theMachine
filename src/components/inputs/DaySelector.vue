@@ -4,7 +4,7 @@
       Day
     </label>
     <div class="flex-container">
-      <button v-for="day in week" v-bind:name="day.name" v-bind:value="day.name" v-bind:key="day.name" class="btn" @click="day.active = !day.active" :class="{active: day.active}">
+      <button v-for="day in week" :name="day.name" :value="day.name" :key="day.name" class="btn" @click="day.active = !day.active" :class="{active: day.active}">
         {{ day.name[0].toUpperCase() }}
       </button>
     </div>
@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 .flex-container {
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .btn {
   background: transparent;
