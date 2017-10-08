@@ -1,4 +1,5 @@
 const axios = require('axios');
+// const querystring = require('querystring');
 const _ = require('lodash');
 
 // composable crud
@@ -31,14 +32,19 @@ let crud = (state) => ({
       callback(res.data);
     });
   },
-  create (token, obj, callback) {
-    axios.post(state.url + '/', {
+  create (token, data, callback) {
+    // axios.post(state.url + '/', {
+    axios({
+      method: 'post',
+      url: state.url + '/',
       headers: {
         'x-access-token': token
       },
-      obj
+      data: data
     }).then(res => {
-      callback(res.data);
+      if (callback) {
+        callback(res.data);
+      }
     });
   },
   update (token, id, callback) {

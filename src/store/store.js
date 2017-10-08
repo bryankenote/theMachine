@@ -56,6 +56,9 @@ export const store = new Vuex.Store({
     setWorkJobs (state, workJobs) {
       state.workJobs = workJobs;
     },
+    addWorkJob (state, workJob) {
+      state.workJobs.push(workJob);
+    },
     setFines (state, fines) {
       state.fines = fines;
     }
@@ -109,6 +112,9 @@ export const store = new Vuex.Store({
       fines.getAll(this.getters.token, fines => {
         context.commit('setFines', fines);
       });
+    },
+    addWorkJob (context, workJob) {
+      workJobs.create(this.getters.token, workJob, workJob => context.commit('addWorkJob', workJob));
     }
   }
 });

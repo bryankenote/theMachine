@@ -3,17 +3,17 @@
     <tr slot="thead" v-if="workJobs.length > 0">
       <th>Job</th>
       <th>Description</th>
-      <th>Members</th>
       <th>Due</th>
+      <th>Members</th>
     </tr>
+    <!--<router-link v-bind:to="'/work-jobs/' + workJob._id">-->
     <tr slot="tbody" v-for="workJob in workJobs" v-bind:key="workJob._id">
-      <router-link v-bind:to="'/work-jobs/' + workJob._id">
-        <td class="data">{{ workJob.jobName }}</td>
-        <td class="data">{{ workJob.description}}</td>
-        <td class="data">{{ workJob.due }}</td>
-        <td class="data">${{ getMembersForJob(workJob.members) }}</td>
-      </router-link>
+      <td class="data">{{ workJob.jobName }}</td>
+      <td class="data">{{ workJob.description}}</td>
+      <td class="data">{{ workJob.days }} @ {{ workJob.time }}</td>
+      <td class="data">${{ getMembersForJob(workJob.members) }}</td>
     </tr>
+    <!--</router-link>-->
   </app-table>
 </template>
 
@@ -35,10 +35,10 @@ export default {
     ...mapActions([
       'getAllMembers',
       'getAllWorkJobs'
-    ])
-  },
-  getMembersForJob (workers) {
-    return this.members.filter(member => workers.filter(worker => worker._id === member._id)[0]);
+    ]),
+    getMembersForJob (workers) {
+      return this.members.filter(member => workers.filter(worker => worker._id === member._id)[0]);
+    }
   },
   created () {
     this.getAllMembers();

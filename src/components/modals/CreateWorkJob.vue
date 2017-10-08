@@ -13,9 +13,9 @@
         <textarea name="description" v-model="description" class="form-control"></textarea>
       </label>
 
-      <list :list="tasks">
+      <list-input :list="tasks">
         Tasks
-      </list>
+      </list-input>
 
       <label class="form-label">
         Time
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import modal from '../abstract/Modal.vue';
 import daySelector from '../inputs/DaySelector.vue';
 import list from '../inputs/List.vue';
@@ -42,7 +43,7 @@ export default {
   components: {
     'modal': modal,
     'day-selector': daySelector,
-    'list': list
+    'list-input': list
   },
   props: ['show'],
   data () {
@@ -62,16 +63,37 @@ export default {
       ]
     };
   },
+  computed: {
+    weekDayNames () {
+      return this.week
+      .filter(day => day.active)
+      .map(day => day.name);
+    }
+  },
   methods: {
+    ...mapActions([
+      'addWorkJob'
+    ]),
     close () {
       this.$emit('close');
       this.jobName = '';
       this.description = '';
       this.tasks = [];
       this.time = '';
+      this.week.map(day => {
+        day.active = false;
+        return day;
+      });
     },
     submitPost () {
-      console.log(this.jobName, this.description, this.tasks, this.time, this.week);
+      // console.log(this.jobName, this.description, this.tasks, this.time, this.weekDayNames);
+      this.addWorkJob({
+        jobName: this.jobName,
+        description: this.description,
+        tasks: this.tasks,
+        time: this.time,
+        days: this.weekDayNames
+      });
       // this.close();
     }
   }
