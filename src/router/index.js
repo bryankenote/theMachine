@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Hello from '@/pages/Hello';
 import Dashboard from '@/pages/Dashboard';
+import Roulette from '@/pages/Roulette';
 import Members from '@/pages/Members';
 import Member from '@/pages/Member';
 
@@ -23,7 +24,16 @@ export default new Router({
       name: 'dashboard',
       component: Dashboard,
       meta: {
-        permission: 'judge|wjmanager',
+        permission: 'president|judge|wjmanager',
+        fail: '/'
+      }
+    },
+    {
+      path: '/roulette',
+      name: 'roulette',
+      component: Roulette,
+      meta: {
+        permission: 'president',
         fail: '/'
       }
     },
@@ -32,7 +42,7 @@ export default new Router({
       name: 'members',
       component: Members,
       meta: {
-        permission: 'judge|wjmanager',
+        permission: 'president|judge|wjmanager',
         fail: '/'
       }
     },
@@ -41,7 +51,7 @@ export default new Router({
       name: 'member',
       component: Member,
       meta: {
-        permission: 'judge|wjmanager',
+        permission: 'president|judge|wjmanager',
         fail: '/'
       }
     }

@@ -28,7 +28,7 @@ th, td {
 
 .data:hover {
   /*border-bottom: 1px solid #5BC0DE;*/
-  background-color: #5BC0DE;
+  background-color: #EFFFFF;
 }
 
 tr {

@@ -3,9 +3,9 @@
     <nav class="full-width">
       <div class="wrap">
         <div class="pages">
-          <router-link to="/">BankApp</router-link>
+          <router-link to="/">The Machine</router-link>
+          <router-link v-if="token" to="/roulette">Roulette</router-link>
           <router-link v-if="token" to="/members">Members</router-link>
-          <router-link v-if="$can('wjmanager')" to="/workjobs">Workjobs</router-link>
         </div>
         <div class="user">
           <button v-if="!token" @click="showRegisterModal">

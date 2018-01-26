@@ -63,6 +63,9 @@ export default {
               case 'wjmanager':
                 this.$access('wjmanager');
                 break;
+              case 'president':
+                this.$access('president');
+                break;
               default:
                 break;
             }
