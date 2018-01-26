@@ -77,6 +77,11 @@ exports.members = _.assign(
   crud({ url: 'http://localhost:3000/api/members' })
 );
 
+exports.roulette = _.assign(
+  {},
+  crud({ url: 'http://localhost:3000/api/roulette' })
+);
+
 exports.banks = _.assign(
   {},
   crud({ url: 'http://localhost:3000/api/banks' })

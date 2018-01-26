@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { auth, members, banks, bankJobs, workJobs, fines } from '../api/api';
+import { auth, members, roulette, banks, bankJobs, workJobs, fines } from '../api/api';
 
 Vue.use(Vuex);
 
@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
       token: null
     },
     members: [],
+    groups: [],
     banks: [],
     bankJobs: [],
     workJobs: [],
@@ -25,6 +26,9 @@ export const store = new Vuex.Store({
     },
     member (state) {
       return state.member;
+    },
+    groups (state) {
+      return state.groups;
     },
     banks (state) {
       return state.banks;
@@ -46,6 +50,12 @@ export const store = new Vuex.Store({
     },
     setMembers (state, members) {
       state.members = members;
+    },
+    setGroups (state, groups) {
+      state.groups = groups;
+    },
+    addGroup (state, group) {
+      state.groups.push(group);
     },
     setBanks (state, banks) {
       state.banks = banks;
@@ -93,6 +103,11 @@ export const store = new Vuex.Store({
         context.commit('setMembers', members);
       });
     },
+    getAllGroups (context) {
+      roulette.getAll(this.getters.token, groups => {
+        context.commit('setGroups', groups);
+      });
+    },
     getAllBanks (context) {
       banks.getAll(this.getters.token, banks => {
         context.commit('setBanks', banks);
@@ -112,6 +127,9 @@ export const store = new Vuex.Store({
       fines.getAll(this.getters.token, fines => {
         context.commit('setFines', fines);
       });
+    },
+    addGroup (context, group) {
+      roulette.create(this.getters.token, group, group => context.commit('addGroup', group));
     },
     addWorkJob (context, workJob) {
       workJobs.create(this.getters.token, workJob, workJob => context.commit('addWorkJob', workJob));
