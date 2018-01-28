@@ -8,12 +8,13 @@
       <member-table :search="search" :selected="selected" @memberClicked="toggleMember" />
     </div>
     <div v-show="groups.length > 0">
-      <roulette-result :justCreated="true" :groups="groups" @saveResult="save()" @trashResult="groups = []"/>
+      <roulette-result :justCreated="true" :search="search" :groups="groups" @saveResult="save()" @trashResult="groups = []"/>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import memberTable from '../components/tables/MemberTable.vue';
 import rouletteResult from '../components/feeds/RouletteResult.vue';
 
@@ -30,6 +31,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'addGroups'
+    ]),
     toggleMember (member) {
       const index = this.selected.indexOf(member);
       if (index !== -1) {
@@ -69,6 +73,7 @@ export default {
     },
     save () {
       console.log(JSON.stringify(this.groups, null, 2));
+      this.addGroups(this.groups);
       // this.$router.push('rouletteHistory');
     }
   }

@@ -1,8 +1,8 @@
 <template>
-  <feed :header="'Roulette Groups'">
+  <feed>
     <button v-if="justCreated" @click="save()">Save</button>
     <button v-if="justCreated" @click="back()">Back</button>
-    <div class="feed-el" v-for="group in groups" :key="group">
+    <div class="feed-el" v-for="group in groups" :key="group.member1._id">
       <div class="member">
         <p>{{ group.member1.fName }} {{ group.member1.lName }}</p>
         <input v-if="!justCreated" type="checkbox" @click="toggleMember(group.member1)" checked>
@@ -24,11 +24,15 @@
 import Feed from '../abstract/Feed.vue';
 
 export default {
-  props: ['groups', 'justCreated'],
+  props: ['groups', 'justCreated', 'search'],
   components: {
     'feed': Feed
   },
   computed: {
+  },
+  data () {
+    return {
+    };
   },
   methods: {
     checkoff (group) {

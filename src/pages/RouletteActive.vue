@@ -1,26 +1,43 @@
 <template>
   <div>
-    <input type="text" v-model="search">
-    <roulette-history-table :search="search" />
+    <div class="flex-container mtop mbottom">
+      <input type="text" v-model="search">
+    </div>
+    <roulette-result :justCreated="false" :search="search" :groups="groups" />
   </div>
 </template>
 
 <script>
-import rouletteHistoryTable from '../components/tables/RouletteHistoryTable.vue';
+import { mapGetters, mapActions } from 'vuex';
+import rouletteResult from '../components/feeds/RouletteResult.vue';
 
 export default {
   components: {
-    'roulette-history-table': rouletteHistoryTable
+    'roulette-result': rouletteResult
   },
   data () {
     return {
       search: ''
     };
   },
+  computed: {
+    ...mapGetters([
+      'groups'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'getAllGroups'
+    ])
   }
 };
 </script>
 
 <style scoped>
+.mtop {
+  margin-top: 15px;
+}
+.mbottom{
+  margin-bottom: 15px;
+}
 </style>

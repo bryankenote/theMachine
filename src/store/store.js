@@ -37,9 +37,6 @@ export const store = new Vuex.Store({
     },
     setGroups (state, groups) {
       state.groups = groups;
-    },
-    addGroup (state, group) {
-      state.groups.push(group);
     }
   },
   actions: {
@@ -77,8 +74,11 @@ export const store = new Vuex.Store({
         context.commit('setGroups', groups);
       });
     },
-    addGroup (context, group) {
-      roulette.create(this.getters.token, group, group => context.commit('addGroup', group));
+    addGroups (context, state) {
+      roulette.create(this.getters.token, { groups: state.groups }, groups => {
+        context.commit('setGroups', groups);
+        state.callback(groups);
+      });
     }
   }
 });

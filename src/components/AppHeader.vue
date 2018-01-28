@@ -5,8 +5,8 @@
         <div class="pages">
           <router-link to="/">The Machine</router-link>
           <router-link v-if="token" to="/roulette">Roulette</router-link>
-          <router-link v-if="token" to="/rouletteActive">This Week</router-link>
-          <router-link v-if="token" to="/rouletteHistory">History</router-link>
+          <router-link v-if="token" to="/roulette-active">This Week</router-link>
+          <router-link v-if="token" to="/roulette-history">History</router-link>
         </div>
         <div class="user">
           <button v-if="!token" @click="showRegisterModal">
