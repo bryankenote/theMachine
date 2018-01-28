@@ -57,9 +57,9 @@ export default {
       return member.rouletteCompleted - member.rouletteSkipped;
     },
     searched (member) {
+      const fullName = member.fName + ' ' + member.lName;
       return this.search === '' ||
-      member.fName.toLowerCase().includes(this.search) ||
-      member.lName.toLowerCase().includes(this.search);
+      fullName.toLowerCase().includes(this.search);
     },
     toggleMember (member) {
       this.$emit('memberClicked', member);
