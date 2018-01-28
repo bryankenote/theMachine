@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { auth, members, roulette, banks, bankJobs, workJobs, fines } from '../api/api';
+import { auth, members, roulette } from '../api/api';
 
 Vue.use(Vuex);
 
@@ -11,11 +11,7 @@ export const store = new Vuex.Store({
       token: null
     },
     members: [],
-    groups: [],
-    banks: [],
-    bankJobs: [],
-    workJobs: [],
-    fines: []
+    groups: []
   },
   getters: {
     token (state) {
@@ -29,18 +25,6 @@ export const store = new Vuex.Store({
     },
     groups (state) {
       return state.groups;
-    },
-    banks (state) {
-      return state.banks;
-    },
-    bankJobs (state) {
-      return state.bankJobs;
-    },
-    workJobs (state) {
-      return state.workJobs;
-    },
-    fines (state) {
-      return state.fines;
     }
   },
   mutations: {
@@ -56,21 +40,6 @@ export const store = new Vuex.Store({
     },
     addGroup (state, group) {
       state.groups.push(group);
-    },
-    setBanks (state, banks) {
-      state.banks = banks;
-    },
-    setBankJobs (state, bankJobs) {
-      state.bankJobs = bankJobs;
-    },
-    setWorkJobs (state, workJobs) {
-      state.workJobs = workJobs;
-    },
-    addWorkJob (state, workJob) {
-      state.workJobs.push(workJob);
-    },
-    setFines (state, fines) {
-      state.fines = fines;
     }
   },
   actions: {
@@ -108,31 +77,8 @@ export const store = new Vuex.Store({
         context.commit('setGroups', groups);
       });
     },
-    getAllBanks (context) {
-      banks.getAll(this.getters.token, banks => {
-        context.commit('setBanks', banks);
-      });
-    },
-    getAllBankJobs (context) {
-      bankJobs.getAll(this.getters.token, bankJobs => {
-        context.commit('setBankJobs', bankJobs);
-      });
-    },
-    getAllWorkJobs (context) {
-      workJobs.getAll(this.getters.token, workJobs => {
-        context.commit('setWorkJobs', workJobs);
-      });
-    },
-    getAllFines (context) {
-      fines.getAll(this.getters.token, fines => {
-        context.commit('setFines', fines);
-      });
-    },
     addGroup (context, group) {
       roulette.create(this.getters.token, group, group => context.commit('addGroup', group));
-    },
-    addWorkJob (context, workJob) {
-      workJobs.create(this.getters.token, workJob, workJob => context.commit('addWorkJob', workJob));
     }
   }
 });

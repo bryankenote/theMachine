@@ -6,11 +6,11 @@
     <div class="modal-body">
       <label class="form-label">
         Username
-        <input name="username" type="text" v-model="username" class="form-control" required>
+        <input name="username" type="text" v-model="username" class="form-control" v-on:keyup.enter="submitPost" required>
       </label>
       <label class="form-label">
         Password
-        <input name="password" type="password" v-model="password" class="form-control" required>
+        <input name="password" type="password" v-model="password" class="form-control" v-on:keyup.enter="submitPost" required>
       </label>
     </div>
     <div class="modal-footer text-right">
@@ -55,24 +55,18 @@ export default {
         password: this.password,
         callback: auth => {
           if (auth) {
-            /* REFACTOR */
             switch (this.username) {
-              case 'judge':
-                this.$access('judge');
-                break;
-              case 'wjmanager':
-                this.$access('wjmanager');
-                break;
               case 'president':
                 this.$access('president');
                 break;
               default:
                 break;
             }
-            /* /REFACTOR */
 
             this.close();
             this.$router.push('dashboard');
+          } else {
+            alert('The username or password provided was not valid');
           }
         }
       });

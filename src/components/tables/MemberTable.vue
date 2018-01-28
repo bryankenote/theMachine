@@ -1,6 +1,5 @@
 <template>
   <div>
-    <input type="text" v-model="search">
     <app-table>
       <tr slot="thead">
         <th></th>
@@ -15,8 +14,11 @@
           </button>
         </th>
       </tr>
-      <tr slot="tbody" v-for="member in displayingMembers" v-bind:key="member._id" class="member-row">
-        <td><input type="checkbox"></td>
+      <tr slot="tbody" v-for="member in members" v-if="searched(member)" :key="member._id" class="member-row">
+        <td>
+          <input type="checkbox" @click="toggleMember(member)" v-if="selected.indexOf(member) !== -1" checked>
+          <input type="checkbox" @click="toggleMember(member)" v-if="selected.indexOf(member) === -1">
+        </td>
         <td class="fname-data data" contenteditable="true">{{ member.fName }}</td>
         <td class="lname-data data" contenteditable="true">{{ member.lName }}</td>
         <td class="data" contenteditable="true">{{ member.rouletteCompleted }}</td>
@@ -34,29 +36,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import appTable from '../components/abstract/AppTable.vue';
+import appTable from '../abstract/AppTable.vue';
 
 export default {
   components: {
     'app-table': appTable
   },
+  props: ['search', 'selected'],
   data () {
     return {
-      search: '',
-      displayingMembers: ''
     };
-  },
-  watch: {
-    'search': function () {
-      if (this.search === '') {
-        this.displayingMembers = this.members;
-      } else {
-        this.displayingMembers = this.members.filter(member => {
-          return member.fName.toLowerCase().includes(this.search) ||
-          member.lName.toLowerCase().includes(this.search);
-        });
-      }
-    }
   },
   computed: {
     ...mapGetters([
@@ -69,11 +58,18 @@ export default {
     ]),
     getScore (member) {
       return member.rouletteCompleted - member.rouletteSkipped;
+    },
+    searched (member) {
+      return this.search === '' ||
+      member.fName.toLowerCase().includes(this.search) ||
+      member.lName.toLowerCase().includes(this.search);
+    },
+    toggleMember (member) {
+      this.$emit('memberClicked', member);
     }
   },
   created () {
     this.getAllMembers();
-    this.displayingMembers = this.members;
   }
 };
 </script>

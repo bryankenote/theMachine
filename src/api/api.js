@@ -82,26 +82,6 @@ exports.roulette = _.assign(
   crud({ url: 'http://localhost:3000/api/roulette' })
 );
 
-exports.banks = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/banks' })
-);
-
-exports.bankJobs = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/bank-jobs' })
-);
-
-exports.workJobs = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/work-jobs' })
-);
-
-exports.fines = _.assign(
-  {},
-  crud({ url: 'http://localhost:3000/api/fines' })
-);
-
 exports.auth = {
   url: 'http://localhost:3000/api/auth',
 
@@ -119,6 +99,10 @@ exports.auth = {
       username: username,
       password: password
     }).then(res => {
+      callback(res);
+    }).catch(res => {
+      /* complains that res.data is not defined */
+      res.data = { auth: false, token: null };
       callback(res);
     });
   },

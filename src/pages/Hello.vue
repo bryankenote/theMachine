@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <p>Welcome to BankApp</p>
+    <p>Welcome to The Machine</p>
   </div>
 </template>
 

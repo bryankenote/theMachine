@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Hello from '@/pages/Hello';
 import Dashboard from '@/pages/Dashboard';
-import Roulette from '@/pages/Roulette';
-import Members from '@/pages/Members';
-import Member from '@/pages/Member';
+import Roulette from '@/pages/RouletteCreate';
+import RouletteActive from '@/pages/RouletteActive';
+import RouletteHistory from '@/pages/RouletteHistory';
 
 Vue.use(Router);
 
@@ -24,7 +24,7 @@ export default new Router({
       name: 'dashboard',
       component: Dashboard,
       meta: {
-        permission: 'president|judge|wjmanager',
+        permission: 'president|someoneElse',
         fail: '/'
       }
     },
@@ -38,20 +38,20 @@ export default new Router({
       }
     },
     {
-      path: '/members',
-      name: 'members',
-      component: Members,
+      path: '/roulette-active',
+      name: 'rouletteActive',
+      component: RouletteActive,
       meta: {
-        permission: 'president|judge|wjmanager',
+        permission: 'president',
         fail: '/'
       }
     },
     {
-      path: '/members/:id',
-      name: 'member',
-      component: Member,
+      path: '/roulette-history',
+      name: 'rouletteHistory',
+      component: RouletteHistory,
       meta: {
-        permission: 'president|judge|wjmanager',
+        permission: 'president',
         fail: '/'
       }
     }
