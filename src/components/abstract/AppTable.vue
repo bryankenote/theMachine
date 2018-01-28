@@ -26,11 +26,6 @@ th, td {
   padding: 5px;
 }
 
-.data:hover {
-  /*border-bottom: 1px solid #5BC0DE;*/
-  background-color: #EFFFFF;
-}
-
 tr {
   border-top: 1px solid #DDD;
 }

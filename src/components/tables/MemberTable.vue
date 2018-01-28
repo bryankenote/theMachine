@@ -18,10 +18,10 @@
         <td>
           <input type="checkbox" @click="toggleMember(member)">
         </td>
-        <td class="fname-data data" contenteditable="true">{{ member.fName }}</td>
-        <td class="lname-data data" contenteditable="true">{{ member.lName }}</td>
-        <td class="data" contenteditable="true">{{ member.rouletteCompleted }}</td>
-        <td class="data" contenteditable="true">{{ member.rouletteSkipped }}</td>
+        <td>{{ member.fName }}</td>
+        <td>{{ member.lName }}</td>
+        <td>{{ member.rouletteCompleted }}</td>
+        <td>{{ member.rouletteSkipped }}</td>
         <td>{{ getScore(member) }}</td>
         <td>
           <button>
