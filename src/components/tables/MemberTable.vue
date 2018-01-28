@@ -14,10 +14,9 @@
           </button>
         </th>
       </tr>
-      <tr slot="tbody" v-for="member in members" v-if="searched(member)" :key="member._id" class="member-row">
+      <tr slot="tbody" v-for="member in members" v-show="searched(member)" :key="member._id" class="member-row">
         <td>
-          <input type="checkbox" @click="toggleMember(member)" v-if="selected.indexOf(member) !== -1" checked>
-          <input type="checkbox" @click="toggleMember(member)" v-if="selected.indexOf(member) === -1">
+          <input type="checkbox" @click="toggleMember(member)">
         </td>
         <td class="fname-data data" contenteditable="true">{{ member.fName }}</td>
         <td class="lname-data data" contenteditable="true">{{ member.lName }}</td>
