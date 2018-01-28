@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="RouletteCreate">
     <div v-show="groups.length <= 0">
-      <input type="text" v-model="search">
-      <button @click="generate">Generate</button>
+      <div class="flex-container mtop mbottom">
+        <input type="text" v-model="search" placeholder="Search Participants">
+        <button @click="generate">Generate</button>
+      </div>
       <member-table :search="search" :selected="selected" @memberClicked="toggleMember" />
     </div>
     <div v-show="groups.length > 0">
@@ -74,4 +76,15 @@ export default {
 </script>
 
 <style scoped>
+.mtop {
+  margin-top: 15px;
+}
+
+.mbottom {
+  margin-bottom: 15px;
+}
+
+.flex-container {
+  justify-content: space-between;
+}
 </style>

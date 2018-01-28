@@ -9,9 +9,7 @@
         <th>Skipped</th>
         <th>Score</th>
         <th>
-          <button class="add-to-table btn btn-success">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </button>
+          <button @click="addMember()">Add Participant</button>
         </th>
       </tr>
       <tr slot="tbody" v-for="member in members" v-show="searched(member)" :key="member._id" class="member-row">
@@ -24,8 +22,8 @@
         <td>{{ member.rouletteSkipped }}</td>
         <td>{{ getScore(member) }}</td>
         <td>
-          <button>
-            <i class="fa fa-trash" aria-hidden="true"></i>
+          <button @click="editMember(member)">
+            Edit Participant
           </button>
         </td>
       </tr>
@@ -65,6 +63,12 @@ export default {
     },
     toggleMember (member) {
       this.$emit('memberClicked', member);
+    },
+    addMember () {
+      console.log('add');
+    },
+    editMember (member) {
+      console.log(JSON.stringify(member, null, 2));
     }
   },
   created () {
