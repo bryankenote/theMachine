@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     checkoff (group) {
-      console.log(JSON.stringify(group, null, 2));
+      // console.log(JSON.stringify(group, null, 2));
     },
     back () {
       this.$emit('trashResult');

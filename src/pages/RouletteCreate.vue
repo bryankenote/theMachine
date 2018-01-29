@@ -73,7 +73,7 @@ export default {
     },
     save () {
       console.log(JSON.stringify(this.groups, null, 2));
-      this.addGroups(this.groups);
+      this.addGroups({ groups: this.groups });
       // this.$router.push('rouletteHistory');
     }
   }

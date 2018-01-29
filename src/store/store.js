@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
       token: null
     },
     members: [],
+    roulettes: [],
     groups: []
   },
   getters: {
@@ -23,6 +24,9 @@ export const store = new Vuex.Store({
     member (state) {
       return state.member;
     },
+    roulettes (state) {
+      return state.roulettes;
+    },
     groups (state) {
       return state.groups;
     }
@@ -34,6 +38,9 @@ export const store = new Vuex.Store({
     },
     setMembers (state, members) {
       state.members = members;
+    },
+    setRoulettes (state, roulettes) {
+      state.roulettes = roulettes;
     },
     setGroups (state, groups) {
       state.groups = groups;
@@ -67,6 +74,11 @@ export const store = new Vuex.Store({
     getAllMembers (context) {
       members.getAll(this.getters.token, members => {
         context.commit('setMembers', members);
+      });
+    },
+    getAllRoulettes (context) {
+      roulette.getAll(this.getters.token, roulettes => {
+        context.commit('setRoulettes', roulettes);
       });
     },
     getAllGroups (context) {

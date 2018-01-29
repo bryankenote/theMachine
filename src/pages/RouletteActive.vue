@@ -3,7 +3,7 @@
     <div class="flex-container mtop mbottom">
       <input type="text" v-model="search">
     </div>
-    <roulette-result :justCreated="false" :search="search" :groups="groups" />
+    <roulette-result :justCreated="false" :search="search" :groups="roulettes[0].groups" />
   </div>
 </template>
 
@@ -22,13 +22,16 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'groups'
+      'roulettes'
     ])
   },
   methods: {
     ...mapActions([
-      'getAllGroups'
+      'getAllRoulettes'
     ])
+  },
+  created () {
+    this.getAllRoulettes();
   }
 };
 </script>

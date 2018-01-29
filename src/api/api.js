@@ -10,7 +10,9 @@ let crud = (state) => ({
         'x-access-token': token
       }
     }).then(res => {
-      callback(res.data);
+      if (callback) {
+        callback(res.data);
+      }
     });
   },
   getOne (token, id, callback) {
@@ -19,7 +21,9 @@ let crud = (state) => ({
         'x-access-token': token
       }
     }).then(res => {
-      callback(res.data);
+      if (callback) {
+        callback(res.data);
+      }
     });
   },
   find (token, id, query, callback) {
@@ -29,7 +33,9 @@ let crud = (state) => ({
       },
       query
     }).then(res => {
-      callback(res.data);
+      if (callback) {
+        callback(res.data);
+      }
     });
   },
   create (token, data, callback) {
@@ -53,7 +59,9 @@ let crud = (state) => ({
         'x-access-token': token
       }
     }).then(res => {
-      callback(res.data);
+      if (callback) {
+        callback(res.data);
+      }
     });
   },
   delete (token, id, callback) {
@@ -62,7 +70,9 @@ let crud = (state) => ({
         'x-access-token': token
       }
     }).then(res => {
-      callback(res.data);
+      if (callback) {
+        callback(res.data);
+      }
     });
   }
 });
@@ -91,7 +101,9 @@ exports.auth = {
       email: email,
       password: password
     }).then(res => {
-      callback(res);
+      if (callback) {
+        callback(res);
+      }
     });
   },
   login (username, password, callback) {
@@ -99,17 +111,23 @@ exports.auth = {
       username: username,
       password: password
     }).then(res => {
-      callback(res);
+      if (callback) {
+        callback(res);
+      }
     }).catch(res => {
       /* complains that res.data is not defined */
       res.data = { auth: false, token: null };
-      callback(res);
+      if (callback) {
+        callback(res);
+      }
     });
   },
   logout (callback) {
     axios.get(this.url + '/logout')
     .then(res => {
-      callback(res);
+      if (callback) {
+        callback(res);
+      }
     });
   }
 };
