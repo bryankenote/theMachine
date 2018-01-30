@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="flex-container mtop mbottom">
-      <input type="text" v-model="search">
+      <input type="text" v-model="search" placeholder="Search Participants">
     </div>
-    <roulette-result :justCreated="false" :search="search" :groups="roulettes[0].groups" />
+    <roulette-result :justCreated="false" :search="search" :groups="groupsAndNames" />
   </div>
 </template>
 
@@ -22,16 +22,29 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'roulettes'
-    ])
+      'roulettes',
+      'groups',
+      'members'
+    ]),
+    groupsAndNames () {
+      return this.groups.map(g => {
+        return {
+          member1: this.members.filter(m => m._id === g.member1)[0],
+          member2: this.members.filter(m => m._id === g.member2)[0],
+          member3: this.members.filter(m => m._id === g.member3)[0]
+        };
+      });
+    }
   },
   methods: {
     ...mapActions([
-      'getAllRoulettes'
+      'getAllRoulettes',
+      'getAllMembers'
     ])
   },
   created () {
     this.getAllRoulettes();
+    this.getAllMembers();
   }
 };
 </script>

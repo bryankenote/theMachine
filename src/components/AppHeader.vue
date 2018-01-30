@@ -5,7 +5,7 @@
         <div class="pages">
           <router-link to="/">The Machine</router-link>
           <router-link v-if="token" to="/roulette">Roulette</router-link>
-          <router-link v-if="token" to="/roulette-active">This Week</router-link>
+          <router-link v-if="token" to="/roulette-active">Active</router-link>
           <router-link v-if="token" to="/roulette-history">History</router-link>
         </div>
         <div class="user">

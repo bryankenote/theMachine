@@ -44,6 +44,9 @@ export const store = new Vuex.Store({
     },
     setGroups (state, groups) {
       state.groups = groups;
+    },
+    addGroups (state, groups) {
+      state.groups.concat(groups);
     }
   },
   actions: {
@@ -79,17 +82,20 @@ export const store = new Vuex.Store({
     getAllRoulettes (context) {
       roulette.getAll(this.getters.token, roulettes => {
         context.commit('setRoulettes', roulettes);
-      });
-    },
-    getAllGroups (context) {
-      roulette.getAll(this.getters.token, groups => {
+
+        let groups = [];
+        roulettes.forEach(roulette => {
+          groups = groups.concat(roulette.groups.filter(g => !g.completed));
+        });
         context.commit('setGroups', groups);
       });
     },
     addGroups (context, state) {
       roulette.create(this.getters.token, { groups: state.groups }, groups => {
-        context.commit('setGroups', groups);
-        state.callback(groups);
+        context.commit('addGroups', groups);
+        if (state.callback) {
+          state.callback(groups);
+        }
       });
     }
   }
