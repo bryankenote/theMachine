@@ -1,4 +1,4 @@
-# bankapp
+# theMachine
 
 > A Vue.js project
 

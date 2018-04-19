@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <app-header :auth="authenticated" />
-    <router-view></router-view>
+    <app-header />
+    <div class="wrap">
+      <router-view></router-view>
+    </div>
     <app-footer />
   </div>
 </template>
@@ -15,13 +17,6 @@ export default {
   components: {
     'app-header': AppHeader,
     'app-footer': AppFooter
-  },
-  data () {
-    return {
-      authenticated: true,
-      permission: {
-      }
-    };
   }
 };
 </script>
@@ -81,6 +76,10 @@ html {
   box-sizing: inherit;
 }
 /* End */
+
+.flex-container {
+  display: flex;
+}
 
 .full-width {
   width: 100%;

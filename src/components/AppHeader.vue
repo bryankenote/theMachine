@@ -3,35 +3,42 @@
     <nav class="full-width">
       <div class="wrap">
         <div class="pages">
-          <router-link to="/">BankApp</router-link>
-          <router-link v-if="auth" to="/members">Manage Members</router-link>
+          <router-link to="/">The Machine</router-link>
+          <router-link v-if="token" to="/roulette">Roulette</router-link>
+          <router-link v-if="token" to="/roulette-active">Active</router-link>
+          <router-link v-if="token" to="/roulette-history">History</router-link>
         </div>
         <div class="user">
-          <button v-if="!auth" @click="showRegisterModal">
+          <button v-if="!token" @click="showRegisterModal">
             Register
           </button>
-          <button v-if="!auth" @click="showLoginModal">
+          <button v-if="!token" @click="showLoginModal">
             Login
           </button>
-          <router-link v-if="auth" to="/users/logout">Logout</router-link>
+          <button v-if="token" @click.prevent="logoff">Logout</button>
         </div>
       </div>
     </nav>
 
-    <register-modal v-show="registerModal" @close="closeModal"/>
-    <login-modal v-show="loginModal" @close="closeModal"/>
+    <register-modal v-show="registerModal" @close="closeModal" />
+    <login-modal v-show="loginModal" @close="closeModal" />
   </header>
 </template>
 
 <script>
-import RegisterModal from '../components/RegisterModal.vue';
-import LoginModal from '../components/LoginModal.vue';
+import { mapGetters, mapActions } from 'vuex';
+import RegisterModal from '../components/modals/Register.vue';
+import LoginModal from '../components/modals/Login.vue';
 
 export default {
-  props: ['auth'],
   components: {
     'register-modal': RegisterModal,
     'login-modal': LoginModal
+  },
+  computed: {
+    ...mapGetters([
+      'token'
+    ])
   },
   data () {
     return {
@@ -40,6 +47,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'logout'
+    ]),
     closeModal () {
       this.registerModal = false;
       this.loginModal = false;
@@ -51,37 +61,53 @@ export default {
     showLoginModal () {
       this.registerModal = false;
       this.loginModal = true;
+    },
+    logoff () {
+      this.logout({
+        callback: auth => {
+          if (!auth) {
+            this.$access('unauth');
+            this.$router.push('hello');
+          }
+        }
+      });
     }
   }
 };
 </script>
 
 <style scoped>
-  nav {
-    background-color: #F8F8F8;
-    border: 1px solid #E7E7E7;
-    list-style: none;
-    padding: 5px 10px;
-  }
-  nav, .wrap {
-    display: flex;
-    justify-content: space-between;
-  }
-  nav a {
-    color: #777;
-    text-decoration: none;
-    padding: 0 5px;
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    color: #777;
-    font-size: 1em;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  button:focus {
-    outline: none;
-  }
+nav {
+  background-color: #F8F8F8;
+  border: 1px solid #E7E7E7;
+  list-style: none;
+  padding: 5px 10px;
+}
+
+nav,
+.wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav a {
+  color: #777;
+  text-decoration: none;
+  padding: 0 5px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: #777;
+  font-size: 1em;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
 </style>
